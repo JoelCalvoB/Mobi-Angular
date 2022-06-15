@@ -1,0 +1,26 @@
+:root {
+    --principal: #8ae0b0;
+    --fondo: #0a2140;
+    --blanco:white;
+    --input:#ecf1f4;
+    --inputlight:#f5f6f9;
+    --inputdark:#cccccc;
+    --gray:rgb(102, 102, 102);
+  }
+
+  $primary:var(--principal);
+  $secondary:var(--fondo);
+  $white:var(--blanco);
+  $input:var(--input);
+  $inputlight:var(--inputlight);
+  $inputdark:var(--inputdark);
+
+
+  * {
+    box-sizing: border-box;
+}
+body,html {
+  margin: 0;
+  padding: 0;
+}
+ 

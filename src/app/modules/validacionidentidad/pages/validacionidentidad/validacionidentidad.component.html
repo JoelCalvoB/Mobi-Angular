@@ -1,0 +1,57 @@
+<ul class="nav justify-content-center">
+  <li class="nav-item">
+
+  </li>
+  <li class="nav-item">
+
+  </li>
+  <li class="nav-item">
+
+  </li>
+</ul>
+<div class="row">
+  <div class="col estilo"><span class="material-icons mr-4">
+      lock
+    </span>Toda tu información esta protegida</div>
+</div>
+<div class="row">
+  <div class="col-12 identidad11">
+    <span style="    display: block;
+          font-size: x-large;
+          text-align: center;
+          font-weight: 600;">Validaremos tu identidad</span>
+    <span style="    display: block;
+          font-size: normal;
+          text-align: center;
+          font-weight: 300;">Sube tu INE y tomate una foto</span>
+  </div>
+</div>
+<form [formGroup]="myForm" (ngSubmit)="enviarSubmit()">
+  <div class="row">
+    <div class="col">
+      <app-subirarchivos formControlName="subida1" [texto]="'Sube el frente de tu INE'"></app-subirarchivos>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <app-subirarchivos formControlName="subida2" [texto]="'Sube el reverso de tu INE'"></app-subirarchivos>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <app-subirarchivos formControlName="subida3" [texto]="'Tómate una foto de frente'" [esCamara]="true"></app-subirarchivos>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="d-grid gap-2">
+        <button [disabled]="myForm.invalid" [class.desabilitado]="myForm.invalid" class="btn btn-primary" type="submit">
+          <div *ngIf="cargando" class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <span *ngIf="!cargando"> Crear cuenta</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

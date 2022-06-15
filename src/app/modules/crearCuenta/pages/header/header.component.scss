@@ -1,0 +1,23 @@
+a{
+    color:var(--gray)
+}
+
+.oscuro{
+    background-color: var(--fondo) !important;
+    color:white !important;
+    padding: 0;
+    a{
+        color:white;
+    }
+}
+
+.cosas{
+    padding: 0 28px;
+    width: 100%;
+    a:first-child{
+            float:left;
+    }
+    a:last-child{
+        float:right;
+}
+}

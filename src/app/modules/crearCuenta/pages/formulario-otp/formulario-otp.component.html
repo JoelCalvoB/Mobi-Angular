@@ -1,0 +1,43 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="mt-6">
+
+    <div class="form-group row margen">
+        <div class="row mb-4">
+            <div class="col text-center">
+                <h5>Para crear tu cuenta, ingresa el código que te mandamos al:</h5>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col text-center">
+                <h5>{{celular}}</h5>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <a href="">Cambiar número</a>
+            </div>
+        </div>
+        <div class="row mb-4 otpclass">
+            <div class="col-12 text-center">
+                <input #c1  formControlName="c1" (keydown)="tecla($event,'c1')" type="text"  [class.is-invalid]="f.c1.touched && f.c1.invalid" class="form-control">
+                <input #c2 formControlName="c2" (keydown)="tecla($event,'c2')"  type="text"  [class.is-invalid]="f.c2.touched && f.c2.invalid"class="form-control">
+                <input #c3  formControlName="c3" (keydown)="tecla($event,'c3')"  type="text" [class.is-invalid]="f.c3.touched && f.c3.invalid" class="form-control">
+                <input #c4  formControlName="c4" (keydown)="tecla($event,'c4')" type="text" [class.is-invalid]="f.c4.touched && f.c4.invalid" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <a href="">Reenviar código</a>
+            </div>
+        </div>
+        <div class="d-grid gap-2 mb-4">
+            <button [disabled]="!habilitado" [class.desabilitado]="!habilitado" #boton1  class="btn btn-primary" type="submit">
+                <div *ngIf="cargando" class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <span *ngIf="!cargando"> Continuar</span>
+            </button>
+        </div>
+        
+    </div>
+
+</form>

@@ -1,0 +1,48 @@
+.contenedor{
+    position: relative;
+    background-color: var(--fondo);
+    height: calc(100vh - 40px);
+    img{
+        position: absolute;
+        
+    }
+    .img1{
+        bottom: 0px;
+        left: 0px;
+
+    }
+    .img2{
+        top: 0px;
+        right: 0px;
+        @media only screen and (max-width : 600px)
+        {
+           display: none;
+        }
+    }
+
+    .alineando{
+        width: 50%;
+        @media only screen and (max-width : 600px)
+        {
+            width: 90%;
+        }
+        margin: auto!important;
+        padding-top: 100px!important;
+        div{
+            margin:5px 0px;
+        }
+    }
+}
+
+.identidades{
+   text-align: left !important;
+   padding-left: calc(50% - 130px) !important;
+  .text-left{
+    color: var(--inputdark) !important;
+    font-size: smaller;
+  }
+}
+button{
+    width: 50%;
+    margin: auto;
+}

@@ -1,0 +1,41 @@
+<div (click)="abrirVentana()" class="subirarchivos" [class.correcto]="subidaCorrecta">
+    <div>
+        <ng-container *ngIf="!cargando;else cargandosuida">
+            <ng-container *ngIf="!subidaCorrecta;else cargacorrecta">
+                <span class="material-icons mr-4">
+                    cloud_upload
+                </span><span>{{texto}}</span>
+            </ng-container>
+            <ng-template #cargacorrecta>
+                <div class="archivocargado">
+                    <div></div>
+                    <div>
+                        <div style="    color: #9f9e9e;">{{texto}}</div>
+                        <div (click)="activo=true" style="    text-decoration: underline;
+                            font-weight: bold;">Remplazar</div>
+                    </div>
+                </div>
+                <span class="material-icons position1">
+                    check_circle
+                </span>
+
+            </ng-template>
+        </ng-container>
+        <ng-template #cargandosuida>
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <span style="color: rgb(154, 154, 154);">Subiendo</span>
+        </ng-template>
+    </div>
+    <div *ngIf="isMobile && activo" class="subventana slide-in-fwd-center">
+        <ul>
+            <li (click)="abrirVentana('ventanamodal','galeria')">Galeria de fotos</li>
+            <li (click)="abrirVentana('ventanamodal','foto')">Tomar fotos</li>
+            <li (click)="abrirVentana('ventanamodal','galeria')">Seleccionar archivos</li>
+        </ul>
+    </div>
+</div>
+
+
+<app-modal-seleccionar-archivos *ngIf="verModal" [opcion]="opcionSeleccionada" [esCamara]="esCamara" [isMobile]="isMobile" (salida)="enviadoPorModal($event)"></app-modal-seleccionar-archivos>

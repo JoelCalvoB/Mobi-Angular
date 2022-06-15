@@ -1,0 +1,56 @@
+<div *ngIf="!elegirFoto; else elegirGaleria" class="modalitoespecial slide-in-bottom">
+    <nav class="navbar bg-light mb-5">
+        <div class="cosas" >
+            <span (click)="cancelar()" *ngIf="opcion === 'foto'" class="material-icons mr-4">
+               arrow_back
+            </span>
+            <span (click)="cancelar()">{{opcion === 'galeria'?'Cancelar':'Regresar'}}</span>
+            <span ><span *ngIf="opcion === 'galeria'">Tu carrete de fotos</span></span>
+        </div>
+    </nav>
+    <div *ngIf="opcion === 'galeria'" class="contenedorgridcuadros">
+            <div *ngFor="let item of cantidadfotos" (click)="visualizarFotoSeleccionada(item)">{{item}}</div>
+    </div>
+</div>
+<ng-template #elegirGaleria>
+    <div  class="modalitoespecial slide-in-bottom">
+        <div class="part1">
+            {{seleccionado}}
+        </div>
+        <div class="part2">
+            <span (click)="elegirFoto = false">Cancelar</span>
+            <span (click)="aceptar()">Usar</span>
+        </div>
+    </div>
+    
+</ng-template>
+
+<ng-container *ngIf="opcion=='foto'">
+    <div  class="modalitoespecial slide-in-bottom">
+        <nav class="navbar bg-light mb-5">
+            <div class="cosas" >
+                <span (click)="cancelar()" *ngIf="opcion === 'foto'" class="material-icons mr-4">
+                   arrow_back
+                </span>
+                <span (click)="cancelar()">Regresar</span>
+                <span ></span>
+            </div>
+        </nav>
+        <div  class="part1 fotoaqui" [ngClass]="{'sinfotoaqui':base64}">
+            <span *ngIf="base64 == undefined">Foto aquí</span>
+            <img *ngIf="base64" width="100%" height="100%" [src]="base64" alt="" srcset="">
+            <div id="miCamaraid"></div>
+        </div>
+        <div class="part2" style="background-color: white">
+            <div class="d-grid gap-2">
+                <button  class="btn btn-primary" (click)="tomarFoto()" type="button">{{(base64)?'Seleccionar':'Tomar foto'}}</button>
+              </div>
+        </div>
+        
+    </div>
+    
+</ng-container>
+<div *ngIf="!isMobile" class="background-img"></div>
+
+
+

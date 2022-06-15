@@ -1,0 +1,47 @@
+.nav{
+    width: 70%;
+    margin: auto;
+    .nav-item{
+        width: 50px;
+        height: 5px;
+        
+        border-radius: 5px;
+        margin: 0px 10px;
+    }
+
+    .nav-item:first-child{
+        background-color: var(--principal);
+    }
+    .nav-item:nth-last-child(-n+2) {background-color:var(--inputdark);}
+    
+
+}
+
+.estilo{
+    font-size: x-small !important;
+    text-align: center !important;
+    color: #777777 !important;
+    span{
+        font-size: smaller;
+    }
+
+    .identidad11{
+        span:first-child{
+            display: block;
+            font-size: large;
+        }
+        span:last-child{
+            display: block;
+            font-size: medium;
+        }
+    }
+
+}
+
+.row{
+    @media only screen and (min-width : 570px)
+    {
+        width: 60%;
+        margin: auto!important;
+    }
+}

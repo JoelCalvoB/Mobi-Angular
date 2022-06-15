@@ -1,0 +1,21 @@
+$input-height-border:0px;
+$input-padding-x:.9em;
+
+
+$form-floating-height:            add(3.5rem, $input-height-border);
+$form-floating-line-height:       1.25;
+$form-floating-padding-x:         $input-padding-x;
+$form-floating-padding-y:         1rem;
+$form-floating-input-padding-t:   1.625rem;
+$form-floating-input-padding-b:   .625rem;
+$form-floating-label-opacity:     .65;
+$form-floating-label-transform:   scale(.85) translateY(-1.8rem) translateX(.9rem);
+$form-floating-transition:        opacity .1s ease-in-out, transform .1s ease-in-out;
+
+.container-fluid{
+    padding: 0;
+}
+.row{
+    padding: 0 !important;
+    margin: 0 !important;
+}
