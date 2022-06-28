@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CustomValidator } from 'src/app/shared/customValidators/customValids';
 
 @Component({
   selector: 'app-formulario-crearcuenta',
@@ -12,21 +13,64 @@ export class FormularioCrearcuentaComponent implements OnInit {
   public formGroup!:FormGroup;
   public verPassword:boolean = false;
   public cargando:boolean = false;
-
+  activo: boolean = false;
+  okPassword: boolean = false;
   constructor(private fb:FormBuilder,private router:Router) { }
 
   ngOnInit(): void {
-    this.formGroup = this.createForm();
+    this.formGroup = this.createForm("");
+    this.pass();
   }
 
-  private createForm():FormGroup{
+  public pass() {
+    this.formGroup.controls['password'].valueChanges.subscribe(resp => {
+      if (resp.length >= 1) {
+        this.activo = true;
+
+        if (this.formGroup.controls['password'].valid) {
+          this.activo = false;
+          this.okPassword = true;
+        }
+        else {
+          this.okPassword = false;
+        }
+
+      }
+      else {
+        this.activo = false;
+      }
+    })
+  }
+
+  private createForm(obj:any):FormGroup{
     return this.fb.group({
       correo:['',[Validators.required,Validators.email]],
-      password:['',[Validators.required]],
       celular:['',[Validators.required,Validators.pattern('[0-9]{10}')]],
-      terminos:[false,[Validators.required,Validators.requiredTrue]]
-    });
-  }
+      terminos:[false,[Validators.required,Validators.requiredTrue]],
+      password: [obj.password,
+        Validators.compose([    /// PUNTOS A CUMPLIR DE LA CONTRASEÑA
+          Validators.required,
+          CustomValidator.patternValidator(/\d/, {
+            hasNumber: true
+          }),
+          CustomValidator.patternValidator(/[A-Z]/, {
+            hasCapitalCase: true
+          }),
+          CustomValidator.patternValidator(/[a-z]/, {
+            hasSmallCase: true
+          }),
+          CustomValidator.patternValidator(
+            /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+            {
+              hasSpecialCharacters: true
+            }
+          ),
+          Validators.minLength(8)
+        ])
+        ],
+        validpassword: [null , [Validators.required]]
+      }, { validator: CustomValidator.checkPasswords });
+    };
 
   public onSubmit(){
     if(this.formGroup.invalid){
@@ -55,5 +99,12 @@ export class FormularioCrearcuentaComponent implements OnInit {
   public vacio(parametro:any):boolean{
     return Boolean(parametro)
   }
+
+
+
+  public changeColor(){
+      document.documentElement.style.setProperty("--principal", "red");
+  }
+
 
 }

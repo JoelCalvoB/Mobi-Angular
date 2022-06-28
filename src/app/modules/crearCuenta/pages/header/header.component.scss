@@ -1,6 +1,4 @@
-a{
-    color:var(--gray)
-}
+
 
 .oscuro{
     background-color: var(--fondo) !important;
@@ -20,4 +18,15 @@ a{
     a:last-child{
         float:right;
 }
+}
+
+.media{
+    margin-top: 30px;
+    a{
+        color: black;
+    }
+    a:hover{
+        color: red;
+
+    }
 }
