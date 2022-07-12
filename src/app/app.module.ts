@@ -7,7 +7,8 @@ import { AutenticacionLayoutComponent } from './layout/autenticacion/autenticaci
 import { ContenidoComponent } from './layout/contenido/contenido/contenido.component';
 import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './layout/header/header.component';
-import { FooterComponent } from './layout/footer/footer.component';;
+import { FooterComponent } from './layout/footer/footer.component';import { LoginFlujoComponent } from './layout/loginFlujo/login-flujo.component';
+;
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FooterComponent } from './layout/footer/footer.component';;
     AutenticacionLayoutComponent,
     ContenidoComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LoginFlujoComponent
   ],
   imports: [
     BrowserModule,
