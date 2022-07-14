@@ -18,7 +18,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     FormularioOtpComponent,
     IngresoexitosoComponent
   ],
-    imports:[CommonModule,crearCuentaRoutingModule,FormsModule,ReactiveFormsModule]
+    imports:[CommonModule,crearCuentaRoutingModule,FormsModule,ReactiveFormsModule],
+    exports:[FormularioCrearcuentaComponent]
 })
 export class crearCuentaModule{
 

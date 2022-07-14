@@ -1,8 +1,10 @@
 <nav class="navbar bg-light mb-5">
-    <div class="cosas" >
+    <div style="display: flex; justify-content: space-between; align-items: center;" class="cosas" >
         <a class="navbar-brand" href="#">
-            <img src="assets/imagenes/logo.png" alt="" width="80px" height="100%">
+            <img   src="assets/imagenes/atiendelos.png" alt="" width="80px" height="100%">
         </a>
-        <a href="#">¿Necesitas ayuda?</a>
+        <div style="">
+            <a *ngIf="valor" (click)="Logout()">Cerrar sesión</a>
+        </div>
     </div>
 </nav>

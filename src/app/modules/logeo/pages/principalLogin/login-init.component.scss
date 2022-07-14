@@ -1,0 +1,10 @@
+.versionescritorio{
+    display: block;
+    height: 70vh;
+    @media only screen and (max-width : 570px)
+    {
+        display: none;
+    }
+}
+
+

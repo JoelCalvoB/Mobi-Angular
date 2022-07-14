@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
+
+form{
+    padding: 0px 54px;
+    /* margin: 3px; */
+    margin-top: 19px;
+    .centrar{
+        text-align: center;
+    }
+}
+span{
+    text-decoration: underline;
+    font-weight: bold;
+}
+.passwordinput{
+    position:relative;
+}
+.passwordinput > span{
+    position: absolute;
+    right: 60px;
+    top:20px;
+    cursor: pointer;
+}
+
+.errors{
+    display: flex; 
+    flex-direction: column;
+    position: absolute;
+    background: white;
+    z-index: 1;
+    font-size: 12px;
+    font-family: "Open Sans",sans-serif !important;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    box-shadow: 0px 10px 12px rgba(0, 46, 113, 0.12); 
+    border-radius: 4px;
+    padding-left: 16px;
+    width: 100%;
+}
+
+.material-icons-outlined {
+    display: inline-flex;
+    vertical-align: middle;
+    size: 16px;
+  }
