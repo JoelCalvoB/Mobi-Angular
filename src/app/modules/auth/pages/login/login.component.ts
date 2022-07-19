@@ -25,16 +25,18 @@ export class LoginComponent implements OnInit {
       correo:['',[Validators.required,Validators.email]],
       mantener:[false],
       password: [obj.password,Validators.required  ],
-        validpassword: [null , [Validators.required]] });
+        validpassword: [null ] });
     };
 
   public onSubmit(){
+    debugger;
     if(this.formGroup.invalid){
         Object.values(this.formGroup.controls).forEach(control=>{
           control.markAllAsTouched();
         });
         return;
     }
+    debugger;
     this.guardar();
   }
 
@@ -43,7 +45,7 @@ export class LoginComponent implements OnInit {
     this.cargando = true;
     setTimeout(() => {
         this.cargando = false;
-        this.router.navigate(['/autenticacion/validacionotp'],{state:{'formulario':this.formGroup.value}})
+        this.router.navigate(['/inicio'],{state:{'formulario':this.formGroup.value}})
     }, 2000);
   }
 

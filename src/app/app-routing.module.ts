@@ -5,8 +5,9 @@ import { ContenidoComponent } from './layout/contenido/contenido/contenido.compo
 
 const routes: Routes = [
   { path: 'auth', component: AutenticacionLayoutComponent,loadChildren:()=>import('./modules/auth/auth.module').then(m=>m.AuthModule)},
-  { path: 'sesion', component: ContenidoComponent,loadChildren:()=>import('./modules/validacionidentidad/validacionidentidad.modules').then(m=>m.validacionIdentidadModule)},
-  { path: '**', redirectTo: '/auth/crearcuenta', pathMatch: 'full' },
+  { path: 'inicio', component: ContenidoComponent,loadChildren:()=>import('./modules/inicio/inicio.module').then(m=>m.inicioModule)},
+  { path: 'ventas', component: ContenidoComponent,loadChildren:()=>import('./modules/ventas/ventas.module').then(m=>m.ventasModule)},
+  { path: '**', redirectTo: '/auth/login', pathMatch: 'full' },
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
 ];
 
