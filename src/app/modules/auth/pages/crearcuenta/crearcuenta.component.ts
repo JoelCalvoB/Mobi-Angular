@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomValidator } from 'src/app/shared/customValidators/customValids';
 
 @Component({
-  selector: 'app-formulario-crearcuenta',
-  templateUrl: './formulario-crearcuenta.component.html',
-  styleUrls: ['./formulario-crearcuenta.component.scss']
+  selector: 'app-crearcuenta',
+  templateUrl: './crearcuenta.component.html',
+  styleUrls: ['./crearcuenta.component.scss']
 })
-export class FormularioCrearcuentaComponent implements OnInit {
+export class CrearcuentaComponent implements OnInit {
+
+ 
 
   public formGroup!:FormGroup;
   public verPassword:boolean = false;
@@ -91,8 +93,7 @@ export class FormularioCrearcuentaComponent implements OnInit {
     }, 2000);
   }
 
-  get f():any{
-    
+  public get f():any{
     return  this.formGroup.controls;
   }
 
@@ -105,6 +106,4 @@ export class FormularioCrearcuentaComponent implements OnInit {
   public changeColor(){
       document.documentElement.style.setProperty("--principal", "red");
   }
-
-
 }

@@ -1,0 +1,82 @@
+<div  class="row ">
+    <div style="display: flex; justify-content: center;">
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+            <div class="form-group row margen">
+                <div class="row">
+                    <div class="col centrar">
+                        <h1>Inicia Sesión</h1>
+                        <p>La revolución digital restaurantera es tuya!</p>
+                    </div>
+                </div>
+                <div class="form-floating mb-3 col-12">
+                    <input autocomplete="off"  formControlName="correo" type="email" [class.is-invalid]="f.correo.touched && f.correo.invalid" [class.is-valid]="f.correo.touched && f.correo.valid" class="form-control " id="floatingInput" >
+                    <label for="floatingInput">Correo eléctronico</label>
+                    <div  class="invalid-feedback">
+                        <div class="alert alert-danger" role="alert">
+                            <span class="material-icons mr-4 alerta">
+                                error
+                                </span>
+                            <span *ngIf="f.correo.touched && f.correo.errors?.required">Campo requerido</span>
+                            <span *ngIf="f.correo.touched && f.correo.errors?.email">Correo inválido</span>
+                          </div>
+                    </div>
+                </div>
+               
+        
+        
+                <div class="form-floating mb-3 col-12 passwordinput">
+                    <input  formControlName="password" [class.is-invalid]="f.password.touched && f.password.invalid" [class.is-valid]="f.validpassword.touched && f.validpassword.valid" [type]="verPassword?'text':'password'" class="form-control" id="floatingInput" >
+                    <span *ngIf="vacio(f.password.value) && !verPassword" (click)="verPassword=true" class="material-icons mr-4 alerta">
+                        visibility
+                        </span>
+                        <span *ngIf="vacio(f.password.value) && verPassword" (click)="verPassword=false" class="material-icons mr-4 alerta">
+                            visibility_off
+                            </span>
+                    <label for="floatingInput">Contraseña</label>
+             
+                    <div  class="invalid-feedback">
+                        <div *ngIf="f.password.touched && f.password.errors?.required" class="alert alert-danger" role="alert">
+                            <span class="material-icons mr-4 alerta">
+                                error
+                                </span>
+                            <span >Campo requerido</span>
+                          </div>
+                    </div>
+        
+                
+               </div>
+        
+        
+        
+                <div class="mb-3 col-12">
+                    <label class="contenedorInputCheckRadio"> Deseo recordar la sesión
+                        <input formControlName="mantener" [class.is-invalid]="f.mantener.touched && f.mantener.invalid"  id="esAjusteMensualIsr" type="checkbox">
+                        <div *ngIf="f.mantener.touched && f.mantener.invalid" class="alert alert-danger" role="alert">
+                            <span class="material-icons mr-4 alerta">
+                                error
+                                </span>
+                            Campo requerido
+                          </div>
+                        <span class="checkmark"></span>
+                      </label>
+                      <div  class="invalid-feedback">
+                       
+                    </div>
+                </div>
+                <div class="d-grid gap-2">
+                    <button  class="btn btn-primary" type="submit">
+                        <div *ngIf="cargando" class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <span *ngIf="!cargando"> Iniciar</span>
+                       </button>
+                  </div>
+        
+        
+            </div>
+        
+        </form>
+    </div>
+ 
+</div>

@@ -1,0 +1,180 @@
+<div  class="row ">
+    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6  col-sm-6 col-xs-12 sinborder">
+        <div class="row ">
+            <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+                <div class="form-group row margen">
+                    <div class="row">
+                        <div class="col centrar">
+                            <h1>Crear cuenta</h1>
+                            <p>Te damos la bienvenida a la forma más fácil y accesible de administrar tu negocio</p>
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3 col-12">
+                        <input autocomplete="off"  formControlName="correo" type="email" [class.is-invalid]="f.correo.touched && f.correo.invalid" [class.is-valid]="f.correo.touched && f.correo.valid" class="form-control " id="floatingInput" >
+                        <label for="floatingInput">Correo eléctronico</label>
+                        <div  class="invalid-feedback">
+                            <div class="alert alert-danger" role="alert">
+                                <span class="material-icons mr-4 alerta">
+                                    error
+                                    </span>
+                                <span *ngIf="f.correo.touched && f.correo.errors?.required">Campo requerido</span>
+                                <span *ngIf="f.correo.touched && f.correo.errors?.email">Correo inválido</span>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3 col-12 passwordinput">
+                        <input  formControlName="password" [class.is-invalid]="f.password.touched && f.password.invalid" [class.is-valid]="f.password.touched && f.password.valid" [type]="verPassword?'text':'password'" class="form-control" id="floatingInput" >
+                        <span *ngIf="vacio(f.password.value) && !verPassword" (click)="verPassword=true" class="material-icons mr-4 alerta">
+                            visibility
+                            </span>
+                            <span *ngIf="vacio(f.password.value) && verPassword" (click)="verPassword=false" class="material-icons mr-4 alerta">
+                                visibility_off
+                                </span>
+                        <label for="floatingInput">Crea tu contraseña</label>
+            
+                        <div  class="invalid-feedback">
+                            <div *ngIf="f.password.touched && f.password.errors?.required" class="alert alert-danger" role="alert">
+                                <span class="material-icons mr-4 alerta">
+                                    error
+                                    </span>
+                                <span >Campo requerido</span>
+                              </div>
+                        </div>
+                    
+            
+            
+                        <div *ngIf="activo" class="errors mat-elevation-z5">
+            
+                            <div style="padding-bottom: 16px;">
+            
+                                <label
+                                    [ngClass]="f['password'].hasError('required') || f['password'].errors?.minlength   ? 'text-danger' : 'text-success'">
+                                    <i class="material-icons-outlined">{{ f['password'].hasError('required') ||
+                                        f['password'].errors?.minlength ? 'cancel' :
+                                        'check_circle' }}</i>
+                                    Debe de ser al menos 8 caracteres
+                                </label>
+                            </div>
+            
+                            <div style="padding-bottom: 16px;">
+                                <label
+                                    [ngClass]="f['password'].hasError('required') || f['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
+                                    <i class="material-icons-outlined">{{ f['password'].hasError('required') ||
+                                        f['password'].hasError('hasNumber') ? 'cancel' :
+                                        'check_circle' }}</i>
+                                    Debe de contener al menos un número
+                                </label>
+                            </div>
+            
+                            <div style="padding-bottom: 16px;">
+            
+                                <label
+                                    [ngClass]="f['password'].hasError('required') || f['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
+                                    <i class="material-icons-outlined">{{ f['password'].hasError('required') ||
+                                        f['password'].hasError('hasCapitalCase') ? 'cancel' :
+                                        'check_circle' }}</i>
+                                    Debe de contener al menos una letra mayúscula
+                                </label>
+                            </div>
+            
+                            <div style="padding-bottom: 16px;">
+            
+                                <label
+                                    [ngClass]="f['password'].hasError('required') || f['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'">
+                                    <i class="material-icons-outlined">{{ f['password'].hasError('required') ||
+                                        f['password'].hasError('hasSmallCase') ? 'cancel' :
+                                        'check_circle' }}</i>
+                                    Debe de contener al menos una letra minúscula
+                                </label>
+                            </div>
+            
+                            <div style="padding-bottom: 16px;">
+                                <label
+                                    [ngClass]="f['password'].hasError('required') || f['password'].hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'">
+                                    <i class="material-icons-outlined">{{ f['password'].hasError('required') ||
+                                        f['password'].hasError('hasSpecialCharacters') ? 'cancel' :
+                                        'check_circle' }}</i>
+                                    Debe contener al menos un caracter especial
+                                </label>
+                            </div>
+            
+                        </div>
+            
+            
+            
+                    </div>
+            
+            
+                    <div class="form-floating mb-3 col-12 passwordinput">
+                        <input  formControlName="validpassword" [class.is-invalid]="f.validpassword.touched && f.validpassword.invalid" [class.is-valid]="f.validpassword.touched && f.validpassword.valid" [type]="verPassword?'text':'password'" class="form-control" id="floatingInput" >
+                        <span *ngIf="vacio(f.validpassword.value) && !verPassword" (click)="verPassword=true" class="material-icons mr-4 alerta">
+                            visibility
+                            </span>
+                            <span *ngIf="vacio(f.validpassword.value) && verPassword" (click)="verPassword=false" class="material-icons mr-4 alerta">
+                                visibility_off
+                                </span>
+                        <label for="floatingInput">Valida tu contraseña</label>
+                 
+                        <div  class="invalid-feedback">
+                            <div *ngIf="f.validpassword.touched && f.validpassword.errors?.required" class="alert alert-danger" role="alert">
+                                <span class="material-icons mr-4 alerta">
+                                    error
+                                    </span>
+                                <span >Campo requerido</span>
+                              </div>
+                        </div>
+            
+                    
+                   </div>
+            
+             
+                    <div class="form-floating mb-3 col-12">
+                        <input autocomplete="off"  formControlName="celular" type="tel" [class.is-invalid]="f.celular.touched && f.celular.invalid" [class.is-valid]="f.celular.touched && f.celular.valid" class="form-control " id="floatingInput" >
+                        <label for="floatingInput">Celular</label>
+                        <div  class="invalid-feedback">
+                            <div class="alert alert-danger" role="alert">
+                                <span class="material-icons mr-4 alerta">
+                                    error
+                                    </span>
+                                <span *ngIf="f.celular.touched && f.celular.errors?.required">Campo requerido</span>
+                                <span *ngIf="f.celular.touched && f.celular.errors?.email">Formato inválido</span>
+                              </div>
+                        </div>
+                    </div>
+            
+                    <div class="mb-3 col-12">
+                        <label class="contenedorInputCheckRadio">Acepto los <span>Términos, Condiciones y Políticas de Privacidad.</span>
+                            <input formControlName="terminos" [class.is-invalid]="f.terminos.touched && f.terminos.invalid"  id="esAjusteMensualIsr" type="checkbox">
+                            <div *ngIf="f.terminos.touched && f.terminos.invalid" class="alert alert-danger" role="alert">
+                                <span class="material-icons mr-4 alerta">
+                                    error
+                                    </span>
+                                Campo requerido
+                              </div>
+                            <span class="checkmark"></span>
+                          </label>
+                          <div  class="invalid-feedback">
+                           
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button  class="btn btn-primary" type="submit">
+                            <div *ngIf="cargando" class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <span *ngIf="!cargando"> Crear cuenta</span>
+                           </button>
+                      </div>
+            
+            
+                </div>
+            
+            </form>
+        </div>
+    </div>
+    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 fondo versionescritorio">
+        <img src="../../../../../assets/imagenes/logo2.jpeg" width="100%" height="100%" alt="" srcset="">
+      
+    </div>
+</div>

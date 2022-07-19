@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 import { AutenticacionLayoutComponent } from './layout/autenticacion/autenticacion-layout/autenticacion-layout.component';
 import { ContenidoComponent } from './layout/contenido/contenido/contenido.component';
 import { SharedModule } from './shared/shared.module';
-import { HeaderComponent } from './layout/header/header.component';
-import { FooterComponent } from './layout/footer/footer.component';import { LoginFlujoComponent } from './layout/loginFlujo/login-flujo.component';
+import { HeaderComponent } from './layout/contenido/header/header.component';
+import { FooterComponent } from './layout/contenido/footer/footer.component';
 ;
 
 @NgModule({
@@ -17,7 +17,6 @@ import { FooterComponent } from './layout/footer/footer.component';import { Logi
     ContenidoComponent,
     HeaderComponent,
     FooterComponent,
-    LoginFlujoComponent
   ],
   imports: [
     BrowserModule,

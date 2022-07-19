@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CustomValidator } from 'src/app/shared/customValidators/customValids';
 
 @Component({
-  selector: 'app-formulario-login',
-  templateUrl: './formulario-login.component.html',
-  styleUrls: ['./formulario-login.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class FormularioLoginComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   public formGroup!:FormGroup;
   public verPassword:boolean = false;
