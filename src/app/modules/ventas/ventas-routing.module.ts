@@ -1,6 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-const rutas:Routes = [];
+import { VentasComponent } from "./pages/ventas/ventas.component";
+const rutas:Routes = [{path:'',children:[
+    {path:'menuventas',component:VentasComponent}
+]}];
 
 @NgModule({
     declarations:[],

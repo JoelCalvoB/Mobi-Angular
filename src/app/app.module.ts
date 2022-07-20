@@ -9,6 +9,8 @@ import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './layout/contenido/header/header.component';
 import { FooterComponent } from './layout/contenido/footer/footer.component';
 import { MenuComponent } from './layout/contenido/menu/menu.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+
 ;
 
 @NgModule({
@@ -21,6 +23,7 @@ import { MenuComponent } from './layout/contenido/menu/menu.component';
     MenuComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     SharedModule
