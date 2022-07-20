@@ -1,5 +1,5 @@
 <div class="d-flex align-items-start contenido">
-    <div [@abriendomenu]="!cerrando?'abrir':'cerrar'" class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+    <div [@abriendomenu]="mostrar?'abrir':'cerrar'" class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <div class="cabecera">
             <img src="https://static.vecteezy.com/system/resources/previews/000/274/987/original/vector-restaurant-label-food-service-logo.jpg"
                 alt="" srcset="">
@@ -36,5 +36,3 @@
         <router-outlet></router-outlet>      
     </div>
 </div>
-
-<button (click)="cerrando = !cerrando">Click</button>
