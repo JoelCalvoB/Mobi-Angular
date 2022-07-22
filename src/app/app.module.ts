@@ -10,6 +10,8 @@ import { HeaderComponent } from './layout/contenido/header/header.component';
 import { FooterComponent } from './layout/contenido/footer/footer.component';
 import { MenuComponent } from './layout/contenido/menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './services/interceptor/interceptor';
 
 ;
 
@@ -28,7 +30,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     SharedModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,   ///// se agrega interceptor!!!!!
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
