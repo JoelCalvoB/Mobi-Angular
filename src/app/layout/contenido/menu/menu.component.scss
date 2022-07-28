@@ -1,0 +1,60 @@
+.contenido {
+
+    #v-pills-tabContent{
+      width: 100%;
+      height: calc(100vh - 40px);
+      background: var(--fondo);
+      border-radius: 15px;
+      margin: 15px;
+      padding: 8px;
+      color:white;
+    }
+  
+  
+    .v-pills-tab{
+      button{
+        color:black !important;
+      }
+    }
+  
+    
+  
+    .cabecera {
+      
+      text-align: center;
+  
+      img {
+        width: 178px;
+        height: 178px;
+        border-radius: 50%;
+        border-style: dashed;
+        display: block;
+        margin: auto;
+        ;
+      }
+  
+      span {
+        display: block;
+      }
+      span:first-of-type{
+        font-size: xx-large;
+        font-weight: 500;
+      }
+      
+    }
+  
+    div{
+      div:not(:first-child){
+        text-align: right;
+        button{
+          width:  -webkit-fill-available;;
+          display: inline-block;
+          text-align: left;
+          i{
+            float: right;
+          }
+        }
+      }
+    }
+  
+  }
