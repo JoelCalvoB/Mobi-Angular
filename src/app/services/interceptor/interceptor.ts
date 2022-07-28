@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { GenericHttpService } from '../genericHttp/GenericHttpService';
+
 
 declare const Buffer: any;
 
@@ -16,7 +16,7 @@ export class TokenInterceptorService implements HttpInterceptor {
   public url: string = environment.url;
   public decodedToken="";
 
-  constructor(private prd: GenericHttpService) { }
+  constructor() { }
 
 
   intercept(req: HttpRequest<any>, next: HttpHandler): any {
