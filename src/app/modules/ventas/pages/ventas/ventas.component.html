@@ -1,6 +1,12 @@
 <div class="row barrasuperior mb-5 ml-2 mr-2">
     <div class="col titulo-outlet">
-        <label><button class="btn-menu"><i class="bi bi-list"></i></button>
+        <label><button (click)="mostrarmenu()" class="btn-menu"><i class="bi bi-list"></i></button>
             Ventas</label>
+    </div>
+</div>
+
+<div style="position:absolute;top:0;bottom:0;right:0;left:0; " class="row">
+    <div class="col-12" style="padding: 0">
+        <iframe style="    border-radius: 10px;" width="100%" height="100%" src="https://empresas1.herokuapp.com" frameborder="0"></iframe>
     </div>
 </div>
