@@ -1,4 +1,4 @@
-name: despliegeMobi
+name: DespliegeAtiendelos
 
 on:
   push:
