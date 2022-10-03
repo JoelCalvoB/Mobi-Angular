@@ -64,5 +64,9 @@ export class LoginComponent implements OnInit {
       document.documentElement.style.setProperty("--principal", "red");
   }
 
+  public redireccionar(){
+    document.location.href = "/";
+  }
+
 
 }
