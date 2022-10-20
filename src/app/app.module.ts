@@ -9,9 +9,12 @@ import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './layout/contenido/header/header.component';
 import { FooterComponent } from './layout/contenido/footer/footer.component';
 import { MenuComponent } from './layout/contenido/menu/menu.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './core/interceptors/interceptor.service';
+import { MY_USER_TOKEN } from './core/tokens/tokensProviders';
+import { BehaviorSubject } from 'rxjs';
+import { myTokenUserIndicator } from './core/tokens/tokenRecurso';
 
 ;
 
@@ -22,7 +25,7 @@ import { InterceptorService } from './core/interceptors/interceptor.service';
     ContenidoComponent,
     HeaderComponent,
     FooterComponent,
-    MenuComponent,
+    MenuComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -37,6 +40,7 @@ import { InterceptorService } from './core/interceptors/interceptor.service';
       useClass: InterceptorService,
       multi: true,
     },
+    { provide: MY_USER_TOKEN, useValue: new myTokenUserIndicator()}
   ],
   bootstrap: [AppComponent]
 })

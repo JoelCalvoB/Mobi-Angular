@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { GeneralesService } from 'src/app/shared/services/generales.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { LoginAutenticacionService } from 'src/app/shared/services/login-autenticacion.service';
+import { Usuario } from 'src/app/core/modelos/usuarioLogin';
+import { BehaviorSubject } from 'rxjs';
+import { MY_USER_TOKEN } from 'src/app/core/tokens/tokensProviders';
+import { myTokenUserIndicator } from 'src/app/core/tokens/tokenRecurso';
 
 @Component({
   selector: 'app-menu',
@@ -25,12 +30,14 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 export class MenuComponent implements OnInit {
 
   public mostrar:boolean = true;
+  public usuario!:Usuario;
 
-  constructor(private generalesPrd:GeneralesService) { }
+  constructor(private generalesPrd:GeneralesService,@Inject(MY_USER_TOKEN)private usuarioToken:myTokenUserIndicator) { }
 
   ngOnInit(): void {
+    //this.usuario = this.loginPrd.usuarioSesion;
+    console.log("Este es usuario",this.usuarioToken.getValue);
     this.generalesPrd.serviciomenu().subscribe(datos =>{
-      console.log("entra");
       this.mostrar = !this.mostrar;
     });
   }

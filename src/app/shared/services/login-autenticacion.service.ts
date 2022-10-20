@@ -1,20 +1,19 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { Inject, Injectable } from '@angular/core';
+import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 import { autenticacion } from 'src/app/core/modelos/autenticacion';
 import { Usuario } from 'src/app/core/modelos/usuarioLogin';
+import { myTokenUserIndicator } from 'src/app/core/tokens/tokenRecurso';
+import { MY_USER_TOKEN } from 'src/app/core/tokens/tokensProviders';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginAutenticacionService {
-
-  private _usuario!: Usuario;
+export class LoginAutenticacionService {  
 
 
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,@Inject(MY_USER_TOKEN) private userToken:myTokenUserIndicator) { }
   public login(logearse: autenticacion): Observable<Usuario | boolean> {
     const json = JSON.stringify(logearse);
     return this.http.post(`${environment.urlAdmin}/auth/login`, json).pipe(map((s: any) => this.guardarToken(s.access_token)), catchError(s => of(false)));
@@ -22,10 +21,9 @@ export class LoginAutenticacionService {
 
   public guardarToken(token: string): Usuario {
     sessionStorage.setItem("token", token);
-    const respuesta = this.parsearJwt(token);
-    console.log(respuesta);
-    this._usuario = respuesta;
-    return this.usuarioSesion;
+    const respuesta:Usuario = this.parsearJwt(token);    
+    this.userToken.setValue = respuesta;
+    return respuesta;
   }
 
   private parsearJwt(token: string) {
@@ -36,9 +34,5 @@ export class LoginAutenticacionService {
     }).join(''));
 
     return JSON.parse(jsonPayload);
-  };
-
-  public get usuarioSesion(): Usuario {
-    return this._usuario;
   };
 }
