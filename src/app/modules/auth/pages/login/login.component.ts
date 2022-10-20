@@ -42,10 +42,11 @@ export class LoginComponent implements OnInit {
   private enviarDatos(){
     this.cargando = true;
     this.loginPrd.login(this.formGroup.value).subscribe(datos =>{
-      console.log("CONSOLE, LOGIN",datos);
       this.cargando = false;
-      if(datos){
+      if(Boolean(datos)){
         this.router.navigate(['/inicio'],{state:{'formulario':this.formGroup.value}});
+      }else{
+        alert("Contraseña invalidas");
       }
     });
   }

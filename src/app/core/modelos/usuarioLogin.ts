@@ -1,5 +1,3 @@
-import { ModuleTeardownOptions } from "@angular/core/testing";
-
 export interface Usuario {
     nombre: string,
     correo: string,

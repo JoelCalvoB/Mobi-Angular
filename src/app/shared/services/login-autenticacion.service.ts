@@ -15,12 +15,12 @@ export class LoginAutenticacionService {
 
 
   constructor(private http: HttpClient) { }
-  public login(logearse: autenticacion): Observable<any> {
+  public login(logearse: autenticacion): Observable<Usuario | boolean> {
     const json = JSON.stringify(logearse);
     return this.http.post(`${environment.urlAdmin}/auth/login`, json).pipe(map((s: any) => this.guardarToken(s.access_token)), catchError(s => of(false)));
   }
 
-  public guardarToken(token: string) {
+  public guardarToken(token: string): Usuario {
     sessionStorage.setItem("token", token);
     const respuesta = this.parsearJwt(token);
     console.log(respuesta);
