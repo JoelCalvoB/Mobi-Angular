@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginAutenticacionService } from '../../../../shared/services/login-autenticacion.service';
 
 @Component({
   selector: 'app-login',
@@ -14,39 +15,39 @@ export class LoginComponent implements OnInit {
   public cargando:boolean = false;
   activo: boolean = false;
   okPassword: boolean = false;
-  constructor(private fb:FormBuilder,private router:Router) { }
+  constructor(private fb:FormBuilder,private router:Router,private loginPrd:LoginAutenticacionService) { }
 
   ngOnInit(): void {
-    this.formGroup = this.createForm("");
+    this.formGroup = this.createForm({});
   }
 
-  private createForm(obj:any):FormGroup{
+  private createForm(obj?:any):FormGroup{
     return this.fb.group({
-      correo:['',[Validators.required,Validators.email]],
+      username:['',[Validators.required,Validators.email]],
       mantener:[false],
       password: [obj.password,Validators.required  ],
         validpassword: [null ] });
     };
 
   public onSubmit(){
-    debugger;
     if(this.formGroup.invalid){
         Object.values(this.formGroup.controls).forEach(control=>{
           control.markAllAsTouched();
         });
         return;
     }
-    debugger;
-    this.guardar();
+    this.enviarDatos();
   }
 
-  private guardar(){
-    console.log("guada datos");
+  private enviarDatos(){
     this.cargando = true;
-    setTimeout(() => {
-        this.cargando = false;
-        this.router.navigate(['/inicio'],{state:{'formulario':this.formGroup.value}})
-    }, 2000);
+    this.loginPrd.login(this.formGroup.value).subscribe(datos =>{
+      console.log("CONSOLE, LOGIN",datos);
+      this.cargando = false;
+      if(datos){
+        this.router.navigate(['/inicio'],{state:{'formulario':this.formGroup.value}});
+      }
+    });
   }
 
   get f():any{

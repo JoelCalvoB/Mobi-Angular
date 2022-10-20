@@ -11,15 +11,15 @@
                         </div>
                     </div>
                     <div class="form-floating mb-3 col-12">
-                        <input autocomplete="off"  formControlName="correo" type="email" [class.is-invalid]="f.correo.touched && f.correo.invalid" [class.is-valid]="f.correo.touched && f.correo.valid" class="form-control " id="floatingInput" >
+                        <input autocomplete="off"  formControlName="username" type="email" [class.is-invalid]="f.username.touched && f.username.invalid" [class.is-valid]="f.username.touched && f.username.valid" class="form-control " id="floatingInput" >
                         <label for="floatingInput">Correo eléctronico</label>
                         <div  class="invalid-feedback">
                             <div class="alert alert-danger" role="alert">
                                 <span class="material-icons mr-4 alerta">
                                     error
                                     </span>
-                                <span *ngIf="f.correo.touched && f.correo.errors?.required">Campo requerido</span>
-                                <span *ngIf="f.correo.touched && f.correo.errors?.email">Correo inválido</span>
+                                <span *ngIf="f.username.touched && f.username.errors?.required">Campo requerido</span>
+                                <span *ngIf="f.username.touched && f.username.errors?.email">Correo inválido</span>
                               </div>
                         </div>
                     </div>
@@ -77,7 +77,6 @@
             </form>
         </div>
     </div>
-    <button (click)="redireccionar()"></button>
     <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-5" style="display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center;" >
         <img src="../../../../../assets/imagenes/logochef.svg" width="200px"  alt="" srcset="">
         <div>
@@ -87,9 +86,5 @@
         </div>
     </div>
 </div>
-
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
-    </style>
 
 
