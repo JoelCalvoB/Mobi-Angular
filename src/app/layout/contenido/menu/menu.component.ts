@@ -36,7 +36,6 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuario = this.usuarioToken.getValue;
-    console.log("Este es usuario",this.usuarioToken.getValue);
     this.generalesPrd.serviciomenu().subscribe(datos =>{
       this.mostrar = !this.mostrar;
     });
