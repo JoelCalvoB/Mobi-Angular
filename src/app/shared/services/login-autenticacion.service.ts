@@ -10,10 +10,10 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginAutenticacionService {  
+export class LoginAutenticacionService {
 
 
-  constructor(private http: HttpClient,@Inject(MY_USER_TOKEN) private userToken:myTokenUserIndicator) { }
+  constructor(private http: HttpClient, @Inject(MY_USER_TOKEN) private userToken: myTokenUserIndicator) { }
   public login(logearse: autenticacion): Observable<Usuario | boolean> {
     const json = JSON.stringify(logearse);
     return this.http.post(`${environment.urlAdmin}/auth/login`, json).pipe(map((s: any) => this.guardarToken(s.access_token)), catchError(s => of(false)));
@@ -21,9 +21,14 @@ export class LoginAutenticacionService {
 
   public guardarToken(token: string): Usuario {
     sessionStorage.setItem("token", token);
-    const respuesta:Usuario = this.parsearJwt(token);    
+    const respuesta: Usuario = this.parsearJwt(token);
     this.userToken.setValue = respuesta;
     return respuesta;
+  }
+
+  private establecerUsuario(token: string) {
+    const respuesta: Usuario = this.parsearJwt(token);
+    this.userToken.setValue = respuesta;
   }
 
   private parsearJwt(token: string) {
@@ -35,4 +40,10 @@ export class LoginAutenticacionService {
 
     return JSON.parse(jsonPayload);
   };
+
+  public obtenerToken(): string {
+    const token = sessionStorage.getItem("token") as string;
+    if (token) this.establecerUsuario(token);
+    return token;
+  }
 }

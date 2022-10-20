@@ -14,13 +14,15 @@ export interface Rol {
 export interface Modulo {
     nombre: string,
     icono: string,
-    submodulo: Submodulo[];
+    seleccionado:boolean;
+    submodulos: Submodulo[];
 }
 
 export interface Submodulo {
     nombre: string,
     ruta: string,
     permisos: Permisos[]
+    visible:boolean;
 }
 
 export interface Permisos {

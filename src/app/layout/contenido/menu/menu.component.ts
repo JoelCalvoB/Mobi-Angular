@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { GeneralesService } from 'src/app/shared/services/generales.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { LoginAutenticacionService } from 'src/app/shared/services/login-autenticacion.service';
-import { Usuario } from 'src/app/core/modelos/usuarioLogin';
+import { Modulo, Usuario } from 'src/app/core/modelos/usuarioLogin';
 import { BehaviorSubject } from 'rxjs';
 import { MY_USER_TOKEN } from 'src/app/core/tokens/tokensProviders';
 import { myTokenUserIndicator } from 'src/app/core/tokens/tokenRecurso';
@@ -39,6 +39,14 @@ export class MenuComponent implements OnInit {
     this.generalesPrd.serviciomenu().subscribe(datos =>{
       this.mostrar = !this.mostrar;
     });
+  }
+
+  public seleccionar(item?:Modulo){
+      this.usuario.rol.modulos.forEach(s => {
+        if(s.nombre !== item?.nombre)
+            s.seleccionado = false
+      });
+      if(item)item.seleccionado = !item.seleccionado;
   }
 
 }
