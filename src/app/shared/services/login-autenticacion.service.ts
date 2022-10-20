@@ -46,4 +46,8 @@ export class LoginAutenticacionService {
     if (token) this.establecerUsuario(token);
     return token;
   }
+
+  public cerrarSesion(){
+    sessionStorage.setItem("token","");
+  }
 }

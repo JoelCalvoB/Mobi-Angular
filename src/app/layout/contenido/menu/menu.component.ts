@@ -6,6 +6,7 @@ import { Modulo, Usuario } from 'src/app/core/modelos/usuarioLogin';
 import { BehaviorSubject } from 'rxjs';
 import { MY_USER_TOKEN } from 'src/app/core/tokens/tokensProviders';
 import { myTokenUserIndicator } from 'src/app/core/tokens/tokenRecurso';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -32,7 +33,8 @@ export class MenuComponent implements OnInit {
   public mostrar:boolean = true;
   public usuario!:Usuario;
 
-  constructor(private generalesPrd:GeneralesService,@Inject(MY_USER_TOKEN) private usuarioToken:myTokenUserIndicator) { }
+  constructor(private generalesPrd:GeneralesService,@Inject(MY_USER_TOKEN) private usuarioToken:myTokenUserIndicator,private usuariosPrd:LoginAutenticacionService,
+  private routerPrd:Router) { }
 
   ngOnInit(): void {
     this.usuario = this.usuarioToken.getValue;
@@ -47,6 +49,12 @@ export class MenuComponent implements OnInit {
             s.seleccionado = false
       });
       if(item)item.seleccionado = !item.seleccionado;
+  }
+
+
+  public cerrarSesion(){
+      this.usuariosPrd.cerrarSesion();
+      this.routerPrd.navigateByUrl("/auth/login");
   }
 
 }
