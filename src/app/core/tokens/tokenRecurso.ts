@@ -2,9 +2,7 @@ import { Usuario } from "../modelos/usuarioLogin";
 
 export class myTokenUserIndicator{
     private _usuario!:Usuario;
-    constructor(){
-        console.log("Se inicio");
-    }
+    constructor(){}
     public get getValue(){
         return this._usuario;
     }

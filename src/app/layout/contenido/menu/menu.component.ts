@@ -32,10 +32,10 @@ export class MenuComponent implements OnInit {
   public mostrar:boolean = true;
   public usuario!:Usuario;
 
-  constructor(private generalesPrd:GeneralesService,@Inject(MY_USER_TOKEN)private usuarioToken:myTokenUserIndicator) { }
+  constructor(private generalesPrd:GeneralesService,@Inject(MY_USER_TOKEN) private usuarioToken:myTokenUserIndicator) { }
 
   ngOnInit(): void {
-    //this.usuario = this.loginPrd.usuarioSesion;
+    this.usuario = this.usuarioToken.getValue;
     console.log("Este es usuario",this.usuarioToken.getValue);
     this.generalesPrd.serviciomenu().subscribe(datos =>{
       this.mostrar = !this.mostrar;
