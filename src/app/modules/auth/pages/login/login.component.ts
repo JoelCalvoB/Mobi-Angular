@@ -32,8 +32,6 @@ export class LoginComponent implements OnInit {
     };
 
   public onSubmit(){
-    this.cognitoPrd.loginuser("","");
-    return;
     if(this.formGroup.invalid){
         Object.values(this.formGroup.controls).forEach(control=>{
           control.markAllAsTouched();
