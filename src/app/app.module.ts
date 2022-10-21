@@ -16,7 +16,11 @@ import { MY_USER_TOKEN } from './core/tokens/tokensProviders';
 import { BehaviorSubject } from 'rxjs';
 import { myTokenUserIndicator } from './core/tokens/tokenRecurso';
 
-;
+import { Amplify, Auth } from 'aws-amplify';
+import { environment } from 'src/environments/environment';
+
+var global = window;
+Amplify.configure(environment.configuracionCognito);
 
 @NgModule({
   declarations: [

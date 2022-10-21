@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AutenticacionCognitoService } from 'src/app/shared/services/autenticacion-cognito.service';
 import { LoginAutenticacionService } from '../../../../shared/services/login-autenticacion.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   public cargando:boolean = false;
   activo: boolean = false;
   okPassword: boolean = false;
-  constructor(private fb:FormBuilder,private router:Router,private loginPrd:LoginAutenticacionService) { }
+  constructor(private fb:FormBuilder,private router:Router,private loginPrd:LoginAutenticacionService,
+    private cognitoPrd:AutenticacionCognitoService) { }
 
   ngOnInit(): void {
     this.formGroup = this.createForm({});
@@ -30,6 +32,8 @@ export class LoginComponent implements OnInit {
     };
 
   public onSubmit(){
+    this.cognitoPrd.loginuser("","");
+    return;
     if(this.formGroup.invalid){
         Object.values(this.formGroup.controls).forEach(control=>{
           control.markAllAsTouched();
