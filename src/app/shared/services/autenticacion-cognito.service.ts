@@ -25,39 +25,45 @@ export class AutenticacionCognitoService {
 
   constructor() { }
 
-  public registrarUsuario(username:string,numeroTelefono:string,password:string){
-      var poolData = environment.configuracionCognito.jscognito;
-      var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-      
-      var attributeList = [];
-      
-      var dataEmail = {
-        Name: 'email',
-        Value: username,
-      };
-      
-      var dataPhoneNumber = {
-        Name: 'phone_number',
-        Value: `+52${numeroTelefono}`,
-      };
-      var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
-      var attributePhoneNumber = new AmazonCognitoIdentity.CognitoUserAttribute(
-        dataPhoneNumber
-      );
-      
-      attributeList.push(attributeEmail);
-      attributeList.push(attributePhoneNumber);
-      userPool.signUp(username, password, attributeList, null, function(
-        err:any,
-        result:any
-      ) {
-        if (err) {
-          alert(err.message || JSON.stringify(err));
-          return;
-        }
-        var cognitoUser = result.user;
-        console.log('user name is ' + cognitoUser.getUsername());
+  public registrarUsuario(username:string,numeroTelefono:string,password:string):Promise<string | any>{
+      const promesa = new Promise((resolve,reject)=>{
+        var poolData = environment.configuracionCognito.jscognito;
+        var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+        
+        var attributeList = [];
+        
+        var dataEmail = {
+          Name: 'email',
+          Value: username,
+        };
+        
+        var dataPhoneNumber = {
+          Name: 'phone_number',
+          Value: `+52${numeroTelefono}`,
+        };
+        var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
+        var attributePhoneNumber = new AmazonCognitoIdentity.CognitoUserAttribute(
+          dataPhoneNumber
+        );
+        
+        attributeList.push(attributeEmail);
+        attributeList.push(attributePhoneNumber);
+        userPool.signUp(username, password, attributeList, null, function(
+          err:any,
+          result:any
+        ) {
+          if (err) {
+            reject(err.message || JSON.stringify(err));
+            return;
+          }
+          var cognitoUser = result.user;
+          resolve(cognitoUser);
+          console.log('user name is ' + cognitoUser.getUsername());
+        });
       });
+
+      
+      return promesa;
     
   }
 

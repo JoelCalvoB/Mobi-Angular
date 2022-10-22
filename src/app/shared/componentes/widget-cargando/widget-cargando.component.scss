@@ -5,7 +5,7 @@
     z-index: 1000;
     top: 0;
     left: 0;
-    background-color: rgba(205, 205, 205, 0.628);
+    background-color: rgba(255, 255, 255, 0.628);
 
     @mixin transform($transform) {
         -webkit-transform: $transform;

@@ -88,12 +88,18 @@ export class CrearcuentaComponent implements OnInit {
   }
 
   private guardar(){
-    console.log("guada datos");
-    this.cargando = true;
-    setTimeout(() => {
-        this.cargando = false;
-        this.router.navigate(['/autenticacion/validacionotp'],{state:{'formulario':this.formGroup.value}})
-    }, 2000);
+    this.modalPrd.showLoading("Registrando usuario..");
+    const usuario = this.formGroup.value.correo;
+    const password = this.formGroup.value.password;
+    const telefono = this.formGroup.value.celular;
+    this.loginServices.registrarUsuario(usuario,telefono,password).then(datos =>{
+      this.modalPrd.closeLoading();
+      console.log(datos);
+      this.router.navigate(['/auth/login'],{state:{'formulario':this.formGroup.value}})
+    }).catch(err =>{
+      this.modalPrd.closeLoading();
+      
+    });
   }
 
   public get f():any{
