@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { TYPE_DIALOG } from 'src/app/core/modelos/modales';
+import { CognitoResponse, TYPE_ERROR_COGNITO } from 'src/app/core/modelos/modeloCognito';
 import { CustomValidator } from 'src/app/shared/customValidators/customValids';
 import { AutenticacionCognitoService } from 'src/app/shared/services/autenticacion-cognito.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
@@ -97,15 +98,12 @@ export class CrearcuentaComponent implements OnInit {
     this.loginServices.registrarUsuario(usuario,telefono,password).then(datos =>{
       this.modalPrd.closeLoading();
       this.modalPrd.showMessageDialog({message:'Usuario registrado con éxito',typeDialog:TYPE_DIALOG.SUCCESS}).then(datos =>{
-        console.log("login correcto",datos);
-        this.modalPrd.closeMessageDialog();
         this.router.navigate(['/auth/login'],{state:{'formulario':this.formGroup.value}})
       });
-    }).catch(err =>{
+    }).catch((err:CognitoResponse) =>{
+      
       this.modalPrd.closeLoading();
-      this.modalPrd.showMessageDialog({typeDialog:TYPE_DIALOG.ERROR,message:err}).then(datos=>{
-        this.modalPrd.closeMessageDialog();
-      });
+      this.modalPrd.showMessageDialog({typeDialog:TYPE_ERROR_COGNITO.CodeDeliveryFailureException === err.TypeError?TYPE_DIALOG.SUCCESS:TYPE_DIALOG.ERROR,message:err.mensaje});
     });
   }
 

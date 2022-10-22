@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TYPE_DIALOG } from 'src/app/core/modelos/modales';
+import { CognitoResponse, TYPE_ERROR_COGNITO } from 'src/app/core/modelos/modeloCognito';
 import { AutenticacionCognitoService } from 'src/app/shared/services/autenticacion-cognito.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { LoginAutenticacionService } from '../../../../shared/services/login-autenticacion.service';
@@ -44,14 +46,27 @@ export class LoginComponent implements OnInit {
 
   private enviarDatos(){
     this.modalPrd.showLoading("Iniciando sesión");
-    this.loginPrd.login(this.formGroup.value).subscribe(datos =>{
+    const username = this.formGroup.value.username;
+    const password = this.formGroup.value.password;
+    this.cognitoPrd.loginuser(username,password).then(datos =>{
       this.modalPrd.closeLoading();
-      if(Boolean(datos)){
-        this.router.navigate(['/inicio'],{state:{'formulario':this.formGroup.value}});
-      }else{
-        alert("Contraseña invalidas");
+        this.modalPrd.showMessageDialog({message:datos.mensaje,typeDialog:TYPE_DIALOG.ERROR}).then(()=>{
+            this.modalPrd.closeMessageDialog();
+        });
+    },(err:CognitoResponse)=>{
+      this.modalPrd.closeLoading();
+      switch(err.TypeError){
+        case TYPE_ERROR_COGNITO.NewPassword:
+          this.modalPrd.showMessageDialog({message:err.mensaje,typeDialog:TYPE_DIALOG.SUCCESS}).then(datos =>{
+            
+          });
+          break;
+        default:
+          this.modalPrd.showMessageDialog({message:err.mensaje,typeDialog:TYPE_DIALOG.ERROR});
       }
     });
+    //this.router.navigate(['/inicio'],{state:{'formulario':this.formGroup.value}});
+  
   }
 
   get f():any{

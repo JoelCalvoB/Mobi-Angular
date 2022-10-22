@@ -7,13 +7,13 @@ export const environment = {
   production: false,
   configuracionCognito:{
     Auth:  {
-      userPoolId: 'us-east-2_m8LZLLjoI',
-      userPoolWebClientId: '2c26av0fl2vt8v8k823o8jsphg',
+      userPoolId: 'us-east-2_st7cmLrFP',
+      userPoolWebClientId: 'e75dhjuab2thgshsrhrm98qb9',
 
     },
     jscognito:{
-      UserPoolId: 'us-east-2_m8LZLLjoI', 
-      ClientId: '2c26av0fl2vt8v8k823o8jsphg'
+      UserPoolId: 'us-east-2_st7cmLrFP', 
+      ClientId: 'e75dhjuab2thgshsrhrm98qb9'
     }
   }
 };

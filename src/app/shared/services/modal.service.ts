@@ -18,16 +18,19 @@ export class ModalService {
   }
 
   public closeLoading(){
-    this.modal.next({visible:false,message:'',typeDialog:TYPE_DIALOG.LOADING});
+    this.modal.next({visible:false,message:'',typeDialog:TYPE_DIALOG.NOTHING});
   }
 
   public showMessageDialog(dialogo:ModalLoading):Promise<ModalRespuesta>{
     this.modal.next({visible:true,message:dialogo.message,typeDialog:dialogo.typeDialog});
     const promesa = new Promise<ModalRespuesta>((resolve)=>{
-      this.modalResponsePrd.subscribe(datos =>{
+      const suscripcion =  this.modalResponsePrd.subscribe(datos =>{
         console.log("this.modalResponsePrd.subscribe");
         if(datos.type !== TYPE_DIALOG.NOTHING){
+            suscripcion.unsubscribe();
+            this.closeMessageDialog();
             resolve(datos);
+            
         }
       });
     });
