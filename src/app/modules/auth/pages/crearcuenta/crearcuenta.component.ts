@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomValidator } from 'src/app/shared/customValidators/customValids';
+import { AutenticacionCognitoService } from 'src/app/shared/services/autenticacion-cognito.service';
+import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
   selector: 'app-crearcuenta',
@@ -17,7 +19,8 @@ export class CrearcuentaComponent implements OnInit {
   public cargando:boolean = false;
   activo: boolean = false;
   okPassword: boolean = false;
-  constructor(private fb:FormBuilder,private router:Router) { }
+  constructor(private fb:FormBuilder,private router:Router,private loginServices:AutenticacionCognitoService,
+    private modalPrd:ModalService) { }
 
   ngOnInit(): void {
     this.formGroup = this.createForm("");

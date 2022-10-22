@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AutenticacionCognitoService } from 'src/app/shared/services/autenticacion-cognito.service';
+import { ModalService } from 'src/app/shared/services/modal.service';
 import { LoginAutenticacionService } from '../../../../shared/services/login-autenticacion.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   public cargando:boolean = false;
   activo: boolean = false;
   okPassword: boolean = false;
-  constructor(private fb:FormBuilder,private router:Router,private loginPrd:LoginAutenticacionService,
+  constructor(private modalPrd:ModalService,private fb:FormBuilder,private router:Router,private loginPrd:LoginAutenticacionService,
     private cognitoPrd:AutenticacionCognitoService) { }
 
   ngOnInit(): void {
@@ -42,9 +43,9 @@ export class LoginComponent implements OnInit {
   }
 
   private enviarDatos(){
-    this.cargando = true;
+    this.modalPrd.showLoading("Iniciando sesión");
     this.loginPrd.login(this.formGroup.value).subscribe(datos =>{
-      this.cargando = false;
+      this.modalPrd.closeLoading();
       if(Boolean(datos)){
         this.router.navigate(['/inicio'],{state:{'formulario':this.formGroup.value}});
       }else{

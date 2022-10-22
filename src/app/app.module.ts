@@ -12,7 +12,7 @@ import { MenuComponent } from './layout/contenido/menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './core/interceptors/interceptor.service';
-import { MY_USER_TOKEN } from './core/tokens/tokensProviders';
+import { MY_MODAL_MESSAGE, MY_USER_TOKEN } from './core/tokens/tokensProviders';
 import { BehaviorSubject } from 'rxjs';
 import { myTokenUserIndicator } from './core/tokens/tokenRecurso';
 
@@ -44,7 +44,8 @@ Amplify.configure(environment.configuracionCognito);
       useClass: InterceptorService,
       multi: true,
     },
-    { provide: MY_USER_TOKEN, useValue: new myTokenUserIndicator()}
+    { provide: MY_USER_TOKEN, useValue: new myTokenUserIndicator()},
+    { provide: MY_MODAL_MESSAGE, useValue: new BehaviorSubject({})}
   ],
   bootstrap: [AppComponent]
 })

@@ -25,7 +25,7 @@ export class AutenticacionCognitoService {
 
   constructor() { }
 
-  public registrarUsuario(username:string,password:string){
+  public registrarUsuario(username:string,numeroTelefono:string,password:string){
       var poolData = environment.configuracionCognito.jscognito;
       var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
       
@@ -33,12 +33,12 @@ export class AutenticacionCognitoService {
       
       var dataEmail = {
         Name: 'email',
-        Value: 'santiagoantoniomariscal@gmail.com',
+        Value: username,
       };
       
       var dataPhoneNumber = {
         Name: 'phone_number',
-        Value: '+523321496475',
+        Value: `+52${numeroTelefono}`,
       };
       var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
       var attributePhoneNumber = new AmazonCognitoIdentity.CognitoUserAttribute(
