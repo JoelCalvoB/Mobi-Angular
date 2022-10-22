@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TYPE_DIALOG } from 'src/app/core/modelos/modales';
 import { CustomValidator } from 'src/app/shared/customValidators/customValids';
 import { AutenticacionCognitoService } from 'src/app/shared/services/autenticacion-cognito.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
@@ -25,6 +26,11 @@ export class CrearcuentaComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this.createForm("");
     this.pass();
+  setTimeout(() => {
+    this.modalPrd.showMessageDialog({typeDialog:TYPE_DIALOG.ERROR,message:"Usuario ya existe en la base de datos."}).then(datos=>{
+      console.log("cerrar",datos);
+    });
+  }, 2000);
   }
 
   public pass() {
@@ -98,7 +104,7 @@ export class CrearcuentaComponent implements OnInit {
       this.router.navigate(['/auth/login'],{state:{'formulario':this.formGroup.value}})
     }).catch(err =>{
       this.modalPrd.closeLoading();
-      
+      this.modalPrd.showMessageDialog({typeDialog:TYPE_DIALOG.ERROR,message:err});
     });
   }
 
