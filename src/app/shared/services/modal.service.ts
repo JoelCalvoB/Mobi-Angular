@@ -9,7 +9,10 @@ import { MY_MODAL_MESSAGE, MY_MODAL_REPONSE } from 'src/app/core/tokens/tokensPr
 export class ModalService {
 
   constructor(@Inject(MY_MODAL_MESSAGE) private modal:BehaviorSubject<ModalLoading>,
-  @Inject(MY_MODAL_REPONSE) private modalResponsePrd:BehaviorSubject<ModalRespuesta>) { }
+  @Inject(MY_MODAL_REPONSE) private modalResponsePrd:BehaviorSubject<ModalRespuesta>) {
+
+    console.log("construirTodo");
+   }
   public showLoading(mensaje:string){
       this.modal.next({visible:true,message:mensaje,typeDialog:TYPE_DIALOG.LOADING});
   }
@@ -32,6 +35,7 @@ export class ModalService {
   }
 
   public closeMessageDialog(){
+    this.modalResponsePrd.next({type:TYPE_DIALOG.NOTHING,datos:undefined});
     this.closeLoading();
   }
 }

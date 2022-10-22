@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { TYPE_DIALOG } from 'src/app/core/modelos/modales';
 import { CustomValidator } from 'src/app/shared/customValidators/customValids';
 import { AutenticacionCognitoService } from 'src/app/shared/services/autenticacion-cognito.service';
@@ -26,11 +27,6 @@ export class CrearcuentaComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this.createForm("");
     this.pass();
-  setTimeout(() => {
-    this.modalPrd.showMessageDialog({typeDialog:TYPE_DIALOG.ERROR,message:"Usuario ya existe en la base de datos."}).then(datos=>{
-      console.log("cerrar",datos);
-    });
-  }, 2000);
   }
 
   public pass() {
@@ -100,11 +96,16 @@ export class CrearcuentaComponent implements OnInit {
     const telefono = this.formGroup.value.celular;
     this.loginServices.registrarUsuario(usuario,telefono,password).then(datos =>{
       this.modalPrd.closeLoading();
-      console.log(datos);
-      this.router.navigate(['/auth/login'],{state:{'formulario':this.formGroup.value}})
+      this.modalPrd.showMessageDialog({message:'Usuario registrado con éxito',typeDialog:TYPE_DIALOG.SUCCESS}).then(datos =>{
+        console.log("login correcto",datos);
+        this.modalPrd.closeMessageDialog();
+        this.router.navigate(['/auth/login'],{state:{'formulario':this.formGroup.value}})
+      });
     }).catch(err =>{
       this.modalPrd.closeLoading();
-      this.modalPrd.showMessageDialog({typeDialog:TYPE_DIALOG.ERROR,message:err});
+      this.modalPrd.showMessageDialog({typeDialog:TYPE_DIALOG.ERROR,message:err}).then(datos=>{
+        this.modalPrd.closeMessageDialog();
+      });
     });
   }
 

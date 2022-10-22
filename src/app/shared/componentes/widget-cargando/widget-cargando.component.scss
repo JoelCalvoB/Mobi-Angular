@@ -252,7 +252,6 @@
       }
       .icon{
         i{
-          color: #fc494a;
           font-size: 6em;
         }
       }
@@ -260,7 +259,7 @@
         margin-bottom: 4em;
         h1
         {
-          color: #fc494a;
+          
           font-size: xx-large;
           font-weight: bolder;
           padding: 0;
@@ -270,6 +269,13 @@
         }
       }
     }
+}
+
+.error{
+  color: #fc494a !important;
+}
+.success{
+  color: #00cba9 !important;
 }
 
 
@@ -345,4 +351,9 @@
             transform-origin: 50% 1400px;
     opacity: 1;
   }
+}
+
+.correctoboton{
+  background: #04cba8;
+    border: 1px solid #04cba8;
 }
