@@ -6,12 +6,14 @@ import { AuthRoutingModule } from "./auth-routing.module";
 import { CrearcuentaComponent } from "./pages/crearcuenta/crearcuenta.component";
 import { LoginComponent } from './pages/login/login.component';
 import { CambioPasswordComponent } from './pages/cambio-password/cambio-password.component';
+import { CodigoVerificacionComponent } from './pages/codigo-verificacion/codigo-verificacion.component';
 
 @NgModule({
     declarations:[
     CrearcuentaComponent,
     LoginComponent,
-    CambioPasswordComponent
+    CambioPasswordComponent,
+    CodigoVerificacionComponent
   ],
     imports:[CommonModule,AuthRoutingModule,SharedModule,FormsModule,ReactiveFormsModule]
 })

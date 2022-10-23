@@ -51,9 +51,15 @@ export class LoginComponent implements OnInit {
     const password = this.formGroup.value.password;
     this.cognitoPrd.loginuser(username, password).then(datos => {
       this.modalPrd.closeLoading();
-      this.modalPrd.showMessageDialog({ message: datos.mensaje, typeDialog: TYPE_DIALOG.SUCCESS }).then(() => {
-        this.router.navigate(['/inicio'], { state: { 'formulario': this.formGroup.value } });
-      });
+      if(datos.TypeError === TYPE_ERROR_COGNITO.LoginExitoso){
+        this.modalPrd.showMessageDialog({ message: datos.mensaje, typeDialog: TYPE_DIALOG.SUCCESS }).then(() => {
+          this.router.navigate(['/inicio'], { state: { 'formulario': this.formGroup.value } });
+        });
+      }else if(datos.TypeError === TYPE_ERROR_COGNITO.SMS_MFA){
+        this.modalPrd.showMessageDialog({ message: datos.mensaje, typeDialog: TYPE_DIALOG.SUCCESS }).then(() => {
+          this.router.navigate(['/auth/validacionotp'], { state: { 'formulario': this.formGroup.value } });
+        }); 
+      }
     }, (err: CognitoResponse) => {
       this.modalPrd.closeLoading();
       switch (err.TypeError) {

@@ -37,6 +37,18 @@ export class CognitoResponse {
             case "LoginExitoso":
                 this._typeError = TYPE_ERROR_COGNITO.LoginExitoso;
                 break;
+            case "SMS_MFA":
+                this._typeError = TYPE_ERROR_COGNITO.SMS_MFA;
+                break;
+            case "ExpiredCodeException":
+                this._typeError = TYPE_ERROR_COGNITO.ExpiredCodeException;
+                break;
+            case "CodeMismatchException":
+                this._typeError = TYPE_ERROR_COGNITO.CodeMismatchException;
+                break;
+                case "CodigoCorrectoVerificacionMFA":
+                    this._typeError = TYPE_ERROR_COGNITO.CodigoCorrectoVerificacionMFA;
+                    break;
             default:
                 this._typeError = TYPE_ERROR_COGNITO.nothing;
         }
@@ -71,8 +83,20 @@ export class CognitoResponse {
                 respuesta = "Error.";
                 break;
             case TYPE_ERROR_COGNITO.LoginExitoso:
-                respuesta = "Inicio de sesión correctamnete, disfrute de la aplicación.";
+                respuesta = "Inicio de sesión correctamente, disfrute de la aplicación.";
                 break;
+            case TYPE_ERROR_COGNITO.SMS_MFA:
+                respuesta = "Se le envio un código de seguridad a su número telefónico";
+                break;
+            case TYPE_ERROR_COGNITO.ExpiredCodeException:
+                respuesta = "Código incorrecto o a expirado, favor de intentarlo de nuevo.";
+                break;
+            case TYPE_ERROR_COGNITO.CodeMismatchException:
+                respuesta = "Código incorrecto o a expirado, favor de intentarlo de nuevo.";
+                break
+                case TYPE_ERROR_COGNITO.CodigoCorrectoVerificacionMFA:
+                    respuesta = "Código de verificación de indentidad correcto, Disfrute de Atiendelos APP.";
+                    break
             default:
                 respuesta = "";
         }
@@ -92,5 +116,9 @@ export enum TYPE_ERROR_COGNITO {
     PasswordChanged,
     Error,
     LoginExitoso,
+    SMS_MFA,
+    ExpiredCodeException,
+    CodeMismatchException,
+    CodigoCorrectoVerificacionMFA,
     nothing
 }

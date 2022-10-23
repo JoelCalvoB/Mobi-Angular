@@ -73,21 +73,25 @@ export class AutenticacionCognitoService {
     
   }
 
-  public confirmarUsuario(userName:string,codigoVerificacion:string){
-    var poolData = environment.configuracionCognito.jscognito;
-    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-    var userData = {
-      Username: userName,
-      Pool: userPool,
-    };
-    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-cognitoUser.confirmRegistration(codigoVerificacion, true, function(err:any, result:any) {
-	if (err) {
-		alert(err.message || JSON.stringify(err));
-		return;
-	}
-	console.log('call result: ' + result);
-});
+  public confirmarUsuario(codigoVerificacion:string):Promise<CognitoResponse>{
+    const promesa = new Promise<CognitoResponse>((resolve,reject)=>{
+
+      
+  this.congnitouser.confirmRegistration(codigoVerificacion, true, function(err:any, result:any) {
+    if (err) {
+      console.log("err",err);
+      const respuesta:CognitoResponse = new CognitoResponse();
+      respuesta.type = "ExpiredCodeException";
+      reject((respuesta));
+      return;
+    }
+    console.log('call result: ' + result);
+    resolve(result);
+  });
+    });
+
+    return promesa;
+    
   }
 
   public reenviarCodigoVerificacion(userName:string){
@@ -156,8 +160,10 @@ cognitoUser.confirmRegistration(codigoVerificacion, true, function(err:any, resu
       
         mfaRequired: function(codeDeliveryDetails) {
           console.log(codeDeliveryDetails);
-          var verificationCode = prompt('codigo de verificacion', '') || '';
-          congnitouser.sendMFACode(verificationCode, this);
+          const reponseCognito:CognitoResponse = new CognitoResponse();
+          reponseCognito.type = codeDeliveryDetails;
+          resolve(reponseCognito);
+         
         },
         newPasswordRequired: function(userAttributes, requiredAttributes) {
           const reponseCognito:CognitoResponse = new CognitoResponse();
@@ -198,5 +204,26 @@ cognitoUser.confirmRegistration(codigoVerificacion, true, function(err:any, resu
 
   return promesa;
 
+  }
+
+  public verificarMFA(codigo:string):Promise<CognitoResponse>{
+      const promesa = new Promise<CognitoResponse>((resolve,reject)=>{
+        this.congnitouser.sendMFACode(codigo,{
+          onSuccess:(result)=>{
+
+            const cognito:CognitoResponse = new CognitoResponse();
+            cognito.type = "CodigoCorrectoVerificacionMFA";
+            cognito.datos = result;
+            resolve(cognito);
+
+          },
+          onFailure(err) {
+              const cognito:CognitoResponse = new CognitoResponse();
+              cognito.type = err.code;
+              reject(cognito);
+          },
+        });
+      });
+      return promesa;
   }
 }
