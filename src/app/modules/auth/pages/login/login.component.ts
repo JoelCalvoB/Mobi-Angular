@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
       this.modalPrd.closeLoading();
       switch(err.TypeError){
         case TYPE_ERROR_COGNITO.NewPassword:
-          this.modalPrd.showMessageDialog({message:err.mensaje,typeDialog:TYPE_DIALOG.SUCCESS}).then(datos =>{
+          this.modalPrd.showMessageDialog({message:err.mensaje,typeDialog:TYPE_DIALOG.WARNING}).then(datos =>{
             console.log("correcto",err.datos);
               this.router.navigate(["/auth/cambiopassword"],{state:{datos:err.datos},});
           });

@@ -277,6 +277,12 @@
 .success{
   color: #00cba9 !important;
 }
+.question{
+  color:#1498E8!important;
+}
+.warnign{
+    color:#E8AF14!important;
+}
 
 
 .fade-in {
@@ -357,3 +363,20 @@
   background: #04cba8;
     border: 1px solid #04cba8;
 }
+
+.warningboton{
+  background: #E8AF14;
+    border: 1px solid #E8AF14;
+}
+
+.questionboton{
+  background: #1498E8;
+    border: 1px solid #1498E8;
+}
+.questioncancel{
+  background: #d8d8d8;
+    border: 1px solid #d8d8d8;
+    color:rgb(81, 81, 81);
+}
+
+

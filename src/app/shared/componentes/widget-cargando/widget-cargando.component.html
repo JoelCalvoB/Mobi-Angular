@@ -12,15 +12,18 @@
         <div class="icon">
           <i *ngIf="error === typedialog" class="bi bi-x-circle-fill error"></i>
           <i *ngIf="success === typedialog" class="bi bi-check-circle-fill success"></i>
+          <i *ngIf="question === typedialog" class="bi bi-question-circle-fill question"></i>
+          <i *ngIf="warning === typedialog" class="bi bi-exclamation-triangle warnign"></i>
 
         </div>
         <div class="cuerpo">
-          <h1 [ngClass]="{'success':success === typedialog,'error':error === typedialog}">{{encabezado}}</h1>
+          <h1 [ngClass]="{'success':success === typedialog,'error':error === typedialog,'warnign':warning === typedialog,'question':question === typedialog}">{{encabezado}}</h1>
           <h5>{{mensaje}}</h5>
         </div>
         <div class="footer">
           <div class="d-grid gap-2">
-            <button (click)="enviar()" class="btn btn-primary" [class.correctoboton]="success === typedialog"  style="z-index: 1;" type="button">Aceptar</button>
+            <button (click)="enviar()" class="btn btn-primary" [ngClass]="{'correctoboton':success === typedialog,'warningboton': warning === typedialog,'questionboton':question === typedialog}"  style="z-index: 1;" type="button">Aceptar</button>
+            <button *ngIf="question === typedialog " (click)="cancelar()" class="btn btn-primary questioncancel"   style="z-index: 1;" type="button">Cancelar</button>
           </div>
         </div>
         <div  *ngIf="error === typedialog" class="ondaswave">
@@ -28,6 +31,12 @@
         </div>
         <div  *ngIf="success === typedialog" class="ondaswave">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#00cba9" fill-opacity="1" d="M0,96L30,90.7C60,85,120,75,180,64C240,53,300,43,360,53.3C420,64,480,96,540,133.3C600,171,660,213,720,202.7C780,192,840,128,900,128C960,128,1020,192,1080,202.7C1140,213,1200,171,1260,165.3C1320,160,1380,192,1410,208L1440,224L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>
+        </div>
+        <div  *ngIf="warning === typedialog" class="ondaswave">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#E8AF14" fill-opacity="1" d="M0,96L30,90.7C60,85,120,75,180,64C240,53,300,43,360,53.3C420,64,480,96,540,133.3C600,171,660,213,720,202.7C780,192,840,128,900,128C960,128,1020,192,1080,202.7C1140,213,1200,171,1260,165.3C1320,160,1380,192,1410,208L1440,224L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>
+        </div>
+        <div  *ngIf="question === typedialog" class="ondaswave">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#1498E8" fill-opacity="1" d="M0,96L30,90.7C60,85,120,75,180,64C240,53,300,43,360,53.3C420,64,480,96,540,133.3C600,171,660,213,720,202.7C780,192,840,128,900,128C960,128,1020,192,1080,202.7C1140,213,1200,171,1260,165.3C1320,160,1380,192,1410,208L1440,224L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>
         </div>
       </div>
 </div>
