@@ -14,78 +14,79 @@ import { LoginAutenticacionService } from '../../../../shared/services/login-aut
 })
 export class LoginComponent implements OnInit {
 
-  public formGroup!:FormGroup;
-  public verPassword:boolean = false;
-  public cargando:boolean = false;
+  public formGroup!: FormGroup;
+  public verPassword: boolean = false;
+  public cargando: boolean = false;
   activo: boolean = false;
   okPassword: boolean = false;
-  constructor(private modalPrd:ModalService,private fb:FormBuilder,private router:Router,private loginPrd:LoginAutenticacionService,
-    private cognitoPrd:AutenticacionCognitoService) { }
+  constructor(private modalPrd: ModalService, private fb: FormBuilder, private router: Router, private loginPrd: LoginAutenticacionService,
+    private cognitoPrd: AutenticacionCognitoService) { }
 
   ngOnInit(): void {
     this.formGroup = this.createForm({});
   }
 
-  private createForm(obj?:any):FormGroup{
+  private createForm(obj?: any): FormGroup {
     return this.fb.group({
-      username:['',[Validators.required,Validators.email]],
-      mantener:[false],
-      password: [obj.password,Validators.required  ],
-        validpassword: [null ] });
-    };
+      username: ['', [Validators.required, Validators.email]],
+      mantener: [false],
+      password: [obj.password, Validators.required],
+      validpassword: [null]
+    });
+  };
 
-  public onSubmit(){
-    if(this.formGroup.invalid){
-        Object.values(this.formGroup.controls).forEach(control=>{
-          control.markAllAsTouched();
-        });
-        return;
+  public onSubmit() {
+    if (this.formGroup.invalid) {
+      Object.values(this.formGroup.controls).forEach(control => {
+        control.markAllAsTouched();
+      });
+      return;
     }
     this.enviarDatos();
   }
 
-  private enviarDatos(){
+  private enviarDatos() {
     this.modalPrd.showLoading("Iniciando sesión");
     const username = this.formGroup.value.username;
     const password = this.formGroup.value.password;
-    this.cognitoPrd.loginuser(username,password).then(datos =>{
+    this.cognitoPrd.loginuser(username, password).then(datos => {
       this.modalPrd.closeLoading();
-        this.modalPrd.showMessageDialog({message:datos.mensaje,typeDialog:TYPE_DIALOG.SUCCESS}).then(()=>{
-          this.router.navigate(['/inicio'],{state:{'formulario':this.formGroup.value}});
-        });
-    },(err:CognitoResponse)=>{
+      this.modalPrd.showMessageDialog({ message: datos.mensaje, typeDialog: TYPE_DIALOG.SUCCESS }).then(() => {
+        this.router.navigate(['/inicio'], { state: { 'formulario': this.formGroup.value } });
+      });
+    }, (err: CognitoResponse) => {
       this.modalPrd.closeLoading();
-      switch(err.TypeError){
+      switch (err.TypeError) {
         case TYPE_ERROR_COGNITO.NewPassword:
-          this.modalPrd.showMessageDialog({message:err.mensaje,typeDialog:TYPE_DIALOG.WARNING}).then(datos =>{
-            console.log("correcto",err.datos);
-              this.router.navigate(["/auth/cambiopassword"],{state:{datos:err.datos},});
+          this.modalPrd.showMessageDialog({ message: err.mensaje, typeDialog: TYPE_DIALOG.WARNING }).then(datos => {
+            console.log("correcto", err.datos);
+            this.router.navigate(["/auth/cambiopassword"], { state: { datos: err.datos }, });
           });
           break;
         default:
-          this.modalPrd.showMessageDialog({message:err.mensaje,typeDialog:TYPE_DIALOG.ERROR});
+          this.modalPrd.showMessageDialog({ message: err.mensaje, typeDialog: TYPE_DIALOG.ERROR });
       }
     });
     //this.router.navigate(['/inicio'],{state:{'formulario':this.formGroup.value}});
-  
+
   }
 
-  get f():any{
-    
-    return  this.formGroup.controls;
+  get f(): any {
+
+    return this.formGroup.controls;
   }
 
-  public vacio(parametro:any):boolean{
+  public vacio(parametro: any): boolean {
     return Boolean(parametro)
   }
 
 
 
-  public changeColor(){
-      document.documentElement.style.setProperty("--principal", "red");
+  public changeColor() {
+    document.documentElement.style.setProperty("--principal", "red");
   }
 
-  public redireccionar(){
+  public redireccionar() {
     document.location.href = "/";
   }
 
