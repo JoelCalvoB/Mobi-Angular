@@ -1,13 +1,13 @@
 export class CognitoResponse {
     private _typeError!: TYPE_ERROR_COGNITO;
 
-    private _datos:any;
+    private _datos: any;
 
-    public get datos(){
+    public get datos() {
         return this._datos;
     }
 
-    public set datos(valor:any){
+    public set datos(valor: any) {
         this._datos = valor;
     }
 
@@ -28,14 +28,23 @@ export class CognitoResponse {
             case "NewPassword":
                 this._typeError = TYPE_ERROR_COGNITO.NewPassword;
                 break;
+            case "PasswordChanged":
+                this._typeError = TYPE_ERROR_COGNITO.PasswordChanged;
+                break;
+            case "Error":
+                this._typeError = TYPE_ERROR_COGNITO.Error;
+                break;
+            case "LoginExitoso":
+                this._typeError = TYPE_ERROR_COGNITO.LoginExitoso;
+                break;
             default:
                 this._typeError = TYPE_ERROR_COGNITO.nothing;
         }
     }
 
-    public get TypeError(){
+    public get TypeError() {
         return this._typeError;
-    } 
+    }
 
     get mensaje() {
         let respuesta: string;
@@ -53,8 +62,17 @@ export class CognitoResponse {
                 respuesta = "Datos en proceso de confirmación, se le enviara un correo cuando esten verificados.";
                 break;
             case TYPE_ERROR_COGNITO.NewPassword:
-                    respuesta = "Es necesario cambiar la contraseña para continuar.";
-                    break;
+                respuesta = "Es necesario cambiar la contraseña para continuar.";
+                break;
+            case TYPE_ERROR_COGNITO.PasswordChanged:
+                respuesta = "Contraseña actualizada correctamente.";
+                break;
+            case TYPE_ERROR_COGNITO.Error:
+                respuesta = "Error.";
+                break;
+            case TYPE_ERROR_COGNITO.LoginExitoso:
+                respuesta = "Inicio de sesión correctamnete, disfrute de la aplicación.";
+                break;
             default:
                 respuesta = "";
         }
@@ -71,5 +89,8 @@ export enum TYPE_ERROR_COGNITO {
     CodeDeliveryFailureException,
     UserNotConfirmedException,
     NewPassword,
+    PasswordChanged,
+    Error,
+    LoginExitoso,
     nothing
 }

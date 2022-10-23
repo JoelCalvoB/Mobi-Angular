@@ -50,15 +50,16 @@ export class LoginComponent implements OnInit {
     const password = this.formGroup.value.password;
     this.cognitoPrd.loginuser(username,password).then(datos =>{
       this.modalPrd.closeLoading();
-        this.modalPrd.showMessageDialog({message:datos.mensaje,typeDialog:TYPE_DIALOG.ERROR}).then(()=>{
-            this.modalPrd.closeMessageDialog();
+        this.modalPrd.showMessageDialog({message:datos.mensaje,typeDialog:TYPE_DIALOG.SUCCESS}).then(()=>{
+          this.router.navigate(['/inicio'],{state:{'formulario':this.formGroup.value}});
         });
     },(err:CognitoResponse)=>{
       this.modalPrd.closeLoading();
       switch(err.TypeError){
         case TYPE_ERROR_COGNITO.NewPassword:
           this.modalPrd.showMessageDialog({message:err.mensaje,typeDialog:TYPE_DIALOG.SUCCESS}).then(datos =>{
-            
+            console.log("correcto",err.datos);
+              this.router.navigate(["/auth/cambiopassword"],{state:{datos:err.datos},});
           });
           break;
         default:

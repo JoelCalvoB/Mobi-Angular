@@ -130,6 +130,9 @@ cognitoUser.confirmRegistration(codigoVerificacion, true, function(err:any, resu
         onSuccess: function(result) {
           var accessToken = result.getAccessToken().getJwtToken();
           console.log("OnSuccess",accessToken);
+          const cognitoRespuesta:CognitoResponse = new CognitoResponse();
+          cognitoRespuesta.type = "LoginExitoso";
+          resolve(cognitoRespuesta);
         },
       
         onFailure: function(err) {
@@ -167,25 +170,33 @@ cognitoUser.confirmRegistration(codigoVerificacion, true, function(err:any, resu
     return promesa;
   }
 
-  public cambiandoPassword(userName:string,newPassword:string){
-   
+  public cambiandoPassword(newPassword:string,sessionUserAttributes:any):Promise<CognitoResponse>{
 
-    
     delete sessionUserAttributes.phone_number_verified;
     delete sessionUserAttributes.phone_number;
     delete sessionUserAttributes.email;
-    console.log(sessionUserAttributes);
+    
+    console.log("PasswordChanged",sessionUserAttributes);
 
-
+    const promesa = new Promise<CognitoResponse>((resolve,reject)=>{
 
     this.congnitouser.completeNewPasswordChallenge(newPassword, sessionUserAttributes,{
       onSuccess(session, userConfirmationNecessary?) {
         console.log(session,userConfirmationNecessary);
+        const cognito:CognitoResponse = new CognitoResponse();
+        cognito.type = "PasswordChanged";
+        resolve(cognito);
       },
       onFailure(err) {
         console.log(err);
+        const cognito:CognitoResponse = new CognitoResponse();
+        cognito.type = "Error";
+        reject(cognito);
       },
     });
+  });
+
+  return promesa;
 
   }
 }
