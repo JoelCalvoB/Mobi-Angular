@@ -24,6 +24,10 @@ export class AutenticacionCognitoService {
   
   private congnitouser!:CognitoUser;
 
+  public get userCognito(){
+    return this.congnitouser;
+  }
+
   constructor() { }
 
   public registrarUsuario(username:string,numeroTelefono:string,password:string):Promise<CognitoResponse>{

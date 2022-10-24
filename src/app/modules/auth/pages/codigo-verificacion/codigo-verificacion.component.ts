@@ -28,6 +28,7 @@ export class CodigoVerificacionComponent implements OnInit {
     private modalPrd:ModalService) { }
 
   ngOnInit(): void {
+    if(!Boolean(this.cognitoUser.userCognito)) this.router.navigateByUrl("/auth/login");
     let formulario = history.state.formulario || {};
     this.celular = formulario.celular;
     this.myForm = this.createForm();
