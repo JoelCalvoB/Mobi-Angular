@@ -10,7 +10,7 @@ import { HeaderComponent } from './layout/contenido/header/header.component';
 import { FooterComponent } from './layout/contenido/footer/footer.component';
 import { MenuComponent } from './layout/contenido/menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { InterceptorService } from './core/interceptors/interceptor.service';
 import { MY_MODAL_MESSAGE, MY_MODAL_REPONSE, MY_USER_TOKEN } from './core/tokens/tokensProviders';
 import { BehaviorSubject } from 'rxjs';
@@ -20,6 +20,7 @@ import { Amplify, Auth } from 'aws-amplify';
 import { environment } from 'src/environments/environment';
 import { ModalRespuesta, TYPE_DIALOG } from './core/modelos/modales';
 import { Unary } from '@angular/compiler';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 var global = window;
 Amplify.configure(environment.configuracionCognito);

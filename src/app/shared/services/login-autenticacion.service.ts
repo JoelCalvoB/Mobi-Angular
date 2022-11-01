@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpBackend } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 import { autenticacion } from 'src/app/core/modelos/autenticacion';
@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
 export class LoginAutenticacionService {
 
 
-  constructor(private http: HttpClient, @Inject(MY_USER_TOKEN) private userToken: myTokenUserIndicator) { }
+  constructor(private http: HttpClient, @Inject(MY_USER_TOKEN) private userToken: myTokenUserIndicator,private httpBk:HttpBackend) {}
   public login(logearse: autenticacion): Observable<Usuario | boolean> {
     const json = JSON.stringify(logearse);
     return this.http.post(`${environment.urlAdmin}/auth/login`, json).pipe(map((s: any) => this.guardarToken(s.access_token)), catchError(s => of(false)));

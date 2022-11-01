@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { first, Observable, Subject } from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,9 @@ import { first, Observable, Subject } from 'rxjs';
 export class GeneralesService {
   private prdMostrarmenu!:Subject<void> ;
 
-  constructor() { }
+  constructor(private http:HttpClient) { 
+    
+  }
   
  
    public serviciomenu(){
