@@ -12,6 +12,7 @@ export class protegerRutas implements CanActivate{
 
     }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+        return true;
         const token = this.auth.obtenerToken();
         if(!Boolean(token)) return this.routerPrd.parseUrl("/auth/login");
         return Boolean(token);
