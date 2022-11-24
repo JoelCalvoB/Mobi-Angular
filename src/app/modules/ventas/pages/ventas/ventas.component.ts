@@ -10,6 +10,10 @@ import { GeneralesService } from 'src/app/shared/services/generales.service';
 export class VentasComponent implements OnInit {
 
   public urlatiendelos!:SafeUrl;
+  public usuario:string = "MANSIONBARBARO"
+  public usuarioPWd:string = "MANSIONBARBARO123"
+  public idSucursal:string = "32";
+  public idEmpresa:string = "7";
 
   constructor(private sanitizer:DomSanitizer,private generalesPrd:GeneralesService) { }
 
