@@ -1,3 +1,4 @@
+import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { GeneralesService } from 'src/app/shared/services/generales.service';
@@ -14,12 +15,26 @@ export class VentasComponent implements OnInit {
   public usuarioPWd:string = "MANSIONBARBARO123"
   public idSucursal:string = "32";
   public idEmpresa:string = "7";
+  
 
   constructor(private sanitizer:DomSanitizer,private generalesPrd:GeneralesService) { }
 
   ngOnInit(): void {
     this.urlatiendelos = this.sanitizer.bypassSecurityTrustUrl("https://empresas1.herokuapp.com");
+  
+    //Escuchar app nueva
+    window.addEventListener('message', function (e) {
+      console.log('Pagina Completa', e);
+      //Envio a app antigua
+      if (e) {
+        window.frames.postMessage('HOLA',
+          'http://localhost:8100'
+        )
+      }
+    })
   }
+
+
   public mostrarmenu(){
     this.generalesPrd.showMenu();
   }
