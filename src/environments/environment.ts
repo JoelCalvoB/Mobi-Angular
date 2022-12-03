@@ -4,6 +4,7 @@
 
 export const environment = {
   urlAdmin: "http://ec2-54-170-164-250.eu-west-1.compute.amazonaws.com:3000",
+  urlVersion1App:"http://localhost:8100",
   production: false,
   configuracionCognito:{
     Auth:  {

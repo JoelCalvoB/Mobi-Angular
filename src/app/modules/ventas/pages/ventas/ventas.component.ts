@@ -1,14 +1,17 @@
 import { stringify } from '@angular/compiler/src/util';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { interval } from 'rxjs';
 import { GeneralesService } from 'src/app/shared/services/generales.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-ventas',
   templateUrl: './ventas.component.html',
   styleUrls: ['./ventas.component.scss']
 })
-export class VentasComponent implements OnInit {
+export class VentasComponent implements OnInit,AfterViewInit {
+  @ViewChild("miIframe") iframeReferencia!:ElementRef;
 
   public urlatiendelos!:SafeUrl;
   public usuario:string = "MANSIONBARBARO"
@@ -17,21 +20,29 @@ export class VentasComponent implements OnInit {
   public idEmpresa:string = "7";
   
 
-  constructor(private sanitizer:DomSanitizer,private generalesPrd:GeneralesService) { }
+  constructor(private sanitizer:DomSanitizer,private generalesPrd:GeneralesService) { 
+  }
+  ngAfterViewInit(): void {
+    let temporal = this.iframeReferencia;
+    let objEnviar = {
+      usuario:this.usuario,
+      token:this.usuarioPWd,
+      idsucursal:this.idSucursal,
+      idempresa:this.idEmpresa
+    }
 
-  ngOnInit(): void {
-    this.urlatiendelos = this.sanitizer.bypassSecurityTrustUrl("https://empresas1.herokuapp.com");
-  
-    //Escuchar app nueva
     window.addEventListener('message', function (e) {
-      console.log('Pagina Completa', e);
-      //Envio a app antigua
-      if (e) {
-        window.frames.postMessage('HOLA',
-          'http://localhost:8100'
-        )
+      if (e.origin === environment.urlVersion1App) {
+        if(e.data.complete){
+          temporal.nativeElement.contentWindow.postMessage({...objEnviar}, environment.urlVersion1App)
+        }
       }
     })
+  }
+
+  ngOnInit(): void {
+    console.log("Se esta mandando a llamar");
+    this.urlatiendelos = this.sanitizer.bypassSecurityTrustResourceUrl(environment.urlVersion1App);
   }
 
 
