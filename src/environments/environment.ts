@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  urlAdmin: "http://ec2-54-170-164-250.eu-west-1.compute.amazonaws.com:3000",
+  urlAdmin: "http://localhost:3000",
   production: false,
   configuracionCognito:{
     Auth:  {

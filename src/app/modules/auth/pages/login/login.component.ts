@@ -49,6 +49,11 @@ export class LoginComponent implements OnInit {
     this.modalPrd.showLoading("Iniciando sesión");
     const username = this.formGroup.value.username;
     const password = this.formGroup.value.password;
+    this.loginPrd.login({username:username,password:password}).subscribe(datos=>{
+      this.modalPrd.closeLoading();
+      this.router.navigate(['/inicio'], { state: { 'formulario': this.formGroup.value } });
+    });
+    return;
     this.cognitoPrd.loginuser(username, password).then(datos => {
       this.modalPrd.closeLoading();
       if(datos.TypeError === TYPE_ERROR_COGNITO.LoginExitoso){
