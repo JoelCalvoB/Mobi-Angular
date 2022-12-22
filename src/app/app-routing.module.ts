@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'inicio', component: ContenidoComponent,canActivate:[protegerRutas],loadChildren:()=>import('./modules/inicio/inicio.module').then(m=>m.inicioModule)},
   { path: 'ventas', component: ContenidoComponent,canActivate:[protegerRutas],loadChildren:()=>import('./modules/ventas/ventas.module').then(m=>m.ventasModule)},
   { path: 'reportes', component: ContenidoComponent,canActivate:[protegerRutas],loadChildren:()=>import('./modules/reportes/reportes.module').then(m=>m.reportesModule)},
+  { path: 'administracion', component: ContenidoComponent,canActivate:[protegerRutas],loadChildren:()=>import('./modules/roles/roles.module').then(m=>m.RolesModule)},
   { path: '**', redirectTo: '/auth/login', pathMatch: 'full' },
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
 ];

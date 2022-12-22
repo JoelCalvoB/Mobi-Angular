@@ -1,5 +1,5 @@
 <div class="d-flex align-items-start contenido">
-    <div [@abriendomenu]="mostrar?'abrir':'cerrar'" class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+    <div [@abriendomenu]="mostrar?'abrir':'cerrar'" class="nav menu-contenido-personalizar flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <div class="cabecera">
             <img src="https://static.vecteezy.com/system/resources/previews/000/274/987/original/vector-restaurant-label-food-service-logo.jpg"
                 alt="" srcset="">
@@ -10,7 +10,7 @@
             <span>Rol: {{usuario.rol.nombre}}</span>
         </div>
         <div>
-            <button (click)="seleccionar()" routerLink="/inicio" class="nav-link" routerLinkActive="active" id="v-pills-home-tab" data-bs-toggle="pill"
+            <button (click)="seleccionar()" routerLink="/inicio" class="nav-link" [routerLinkActive]="['active','active-style']" id="v-pills-home-tab" data-bs-toggle="pill"
                 data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
                 aria-selected="true">Inicio<i class="bi bi-house-door"></i>
             </button>
@@ -21,7 +21,7 @@
                 <div *ngIf="item.seleccionado" class="menupersonalizado_item">
                     <ul class="list-group">
                         <ng-container *ngFor="let submodulo of item.submodulos" >
-                            <li (click)="item.seleccionado = false;"  class="list-group-item list-group-item-action cursor">{{submodulo.nombre}}</li>
+                            <li (click)="item.seleccionado = false;navegar(submodulo)"  class="list-group-item list-group-item-action cursor">{{submodulo.nombre}}</li>
                         </ng-container>
                         </ul>
                 </div>
