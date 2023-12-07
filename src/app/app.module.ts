@@ -12,7 +12,7 @@ import { MenuComponent } from './layout/contenido/menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { InterceptorService } from './core/interceptors/interceptor.service';
-import { MY_MODAL_MESSAGE, MY_MODAL_REPONSE, MY_USER_TOKEN } from './core/tokens/tokensProviders';
+import { MY_MODAL_MESSAGE, MY_MODAL_REPONSE, MY_USER_DATA, MY_USER_TOKEN } from './core/tokens/tokensProviders';
 import { BehaviorSubject } from 'rxjs';
 import { myTokenUserIndicator } from './core/tokens/tokenRecurso';
 
@@ -49,7 +49,8 @@ Amplify.configure(environment.configuracionCognito);
     },
     { provide: MY_USER_TOKEN, useValue: new myTokenUserIndicator()},
     { provide: MY_MODAL_MESSAGE, useValue: new BehaviorSubject({})},
-    { provide: MY_MODAL_REPONSE, useValue: new BehaviorSubject<ModalRespuesta>({type:TYPE_DIALOG.NOTHING,datos:Unary})}
+    { provide: MY_MODAL_REPONSE, useValue: new BehaviorSubject<ModalRespuesta>({type:TYPE_DIALOG.NOTHING,datos:Unary})},
+    { provide: MY_USER_DATA,useValue:new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem("datosusuario")||'{}'))}
   ],
   bootstrap: [AppComponent]
 })

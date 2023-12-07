@@ -6,6 +6,7 @@ import { RolesComponent } from "./pages/roles/roles.component";
 const rutas:Routes = [
     {path:'roles',component:RolesComponent},
     {path:'roles/:id',component:AddRolesComponent},
+    {path:'roles/nuevo',component:AddRolesComponent},
 ];
 
 @NgModule({

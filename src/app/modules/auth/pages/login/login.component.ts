@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TYPE_DIALOG } from 'src/app/core/modelos/modales';
@@ -6,6 +6,8 @@ import { CognitoResponse, TYPE_ERROR_COGNITO } from 'src/app/core/modelos/modelo
 import { AutenticacionCognitoService } from 'src/app/shared/services/autenticacion-cognito.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { LoginAutenticacionService } from '../../../../shared/services/login-autenticacion.service';
+import { MY_USER_DATA } from 'src/app/core/tokens/tokensProviders';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,7 @@ export class LoginComponent implements OnInit {
   activo: boolean = false;
   okPassword: boolean = false;
   constructor(private modalPrd: ModalService, private fb: FormBuilder, private router: Router, private loginPrd: LoginAutenticacionService,
-    private cognitoPrd: AutenticacionCognitoService) { }
+    private cognitoPrd: AutenticacionCognitoService,@Inject(MY_USER_DATA) private userSesion:BehaviorSubject<any>) { }
 
   ngOnInit(): void {
     this.formGroup = this.createForm({});
@@ -50,6 +52,10 @@ export class LoginComponent implements OnInit {
     const username = this.formGroup.value.username;
     const password = this.formGroup.value.password;
     this.loginPrd.login({username:username,password:password}).subscribe(datos=>{
+
+      console.log("datos de sesion",datos);
+      sessionStorage.setItem('datosusuario',JSON.stringify(datos));
+      this.userSesion.next(datos);
       this.modalPrd.closeLoading();
       this.router.navigate(['/inicio'], { state: { 'formulario': this.formGroup.value } });
     });
@@ -63,7 +69,7 @@ export class LoginComponent implements OnInit {
       }else if(datos.TypeError === TYPE_ERROR_COGNITO.SMS_MFA){
         this.modalPrd.showMessageDialog({ message: datos.mensaje, typeDialog: TYPE_DIALOG.SUCCESS }).then(() => {
           this.router.navigate(['/auth/validacionotp'], { state: { 'formulario': this.formGroup.value } });
-        }); 
+        });
       }
     }, (err: CognitoResponse) => {
       this.modalPrd.closeLoading();

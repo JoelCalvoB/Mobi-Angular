@@ -12,4 +12,8 @@ export class AddRolesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public comeback(){
+        history.back();
+  }
+
 }

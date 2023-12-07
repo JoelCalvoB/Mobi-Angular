@@ -1,10 +1,10 @@
 <div class="d-flex align-items-start contenido">
     <div [@abriendomenu]="mostrar?'abrir':'cerrar'" class="nav menu-contenido-personalizar flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <div class="cabecera">
-            <img src="https://static.vecteezy.com/system/resources/previews/000/274/987/original/vector-restaurant-label-food-service-logo.jpg"
+            <img src="https://empresas1.herokuapp.com/assets/imgs/logoresutaurante.png"
                 alt="" srcset="">
             <span>
-                Papolina
+                {{usuario.rol.empresas.nombre}}
             </span>
             <span>Empleado: {{usuario.nombre}}</span>
             <span>Rol: {{usuario.rol.nombre}}</span>
@@ -31,7 +31,7 @@
                 type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"><i class="bi bi-sliders"></i>Cerrar sesión</button>
         </div>
     </div>
-    <div class="tab-content" style="z-index: 1;position:relative" id="v-pills-tabContent">
+    <div class="tab-content" style="z-index: 1;position:relative;    overflow: auto;" id="v-pills-tabContent">
         <ng-content></ng-content>
     </div>
 </div>

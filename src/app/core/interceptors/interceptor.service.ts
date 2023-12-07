@@ -11,7 +11,8 @@ export class InterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     req = req.clone({
       headers:new HttpHeaders({
-          'Content-type':'application/json'
+          'Content-type':'application/json',
+          'Authorization':`Bearer ${sessionStorage.getItem("token")}`
       })
     });
     return next.handle(req);

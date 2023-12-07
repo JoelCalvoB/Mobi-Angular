@@ -1,0 +1,26 @@
+.table{
+  thead{
+    tr{
+      background-color:  var(--principal);
+      color:white;
+    }
+  }
+}
+
+
+.active{
+  color: #fff!important;
+  background-color: var(--principal)!important;
+  border-color: #ffffff!important;
+}
+
+
+.disabled{
+  cursor: not-allowed!important;
+}
+
+.inscribirmecurso{
+  background-color: #03a9f4;
+  color:white;
+  border:none;
+}

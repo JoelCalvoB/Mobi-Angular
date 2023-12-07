@@ -1,12 +1,13 @@
 :root {
     --principal: #fc4a4a;
+    --secundario: #46b7e0;
     --fondo: #f4f2f2;
     --blanco:white;
     --input:#ecf1f4;
     --inputlight:#f5f6f9;
     --inputdark:#cccccc;
     --gray:rgb(102, 102, 102);
-    
+
   }
 
   $primary:var(--principal);
@@ -24,4 +25,3 @@ body,html {
   margin: 0;
   padding: 0;
 }
- 

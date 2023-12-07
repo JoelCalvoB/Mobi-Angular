@@ -6,3 +6,4 @@ import { myTokenUserIndicator } from "./tokenRecurso";
 export const MY_USER_TOKEN = new InjectionToken<myTokenUserIndicator>("myUserToken");
 export const MY_MODAL_MESSAGE = new InjectionToken<BehaviorSubject<ModalLoading>>("myModalMessage");
 export const MY_MODAL_REPONSE = new InjectionToken<BehaviorSubject<ModalRespuesta>>("myModalReponse");
+export const MY_USER_DATA = new InjectionToken<BehaviorSubject<any>>("myUserData");

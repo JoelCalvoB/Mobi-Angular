@@ -9,6 +9,7 @@ export interface Usuario {
 export interface Rol {
     nombre: string,
     modulos: Modulo[];
+    empresas:Empresa
 }
 
 export interface Modulo {
@@ -28,4 +29,11 @@ export interface Submodulo {
 export interface Permisos {
     id: number,
     nombre: string,
+}
+
+export interface Empresa{
+  idEmpresa:Number,
+  isCliente:boolean,
+  nombre:string,
+  razonSocial:string
 }

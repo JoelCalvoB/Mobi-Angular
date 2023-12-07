@@ -4,7 +4,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { LoginAutenticacionService } from 'src/app/shared/services/login-autenticacion.service';
 import { Modulo, Usuario } from 'src/app/core/modelos/usuarioLogin';
 import { BehaviorSubject } from 'rxjs';
-import { MY_USER_TOKEN } from 'src/app/core/tokens/tokensProviders';
+import { MY_USER_DATA, MY_USER_TOKEN } from 'src/app/core/tokens/tokensProviders';
 import { myTokenUserIndicator } from 'src/app/core/tokens/tokenRecurso';
 import { Router } from '@angular/router';
 import { ModalService } from 'src/app/shared/services/modal.service';
@@ -38,12 +38,18 @@ export class MenuComponent implements OnInit {
   public usuario!: Usuario;
 
   constructor(private generalesPrd: GeneralesService, @Inject(MY_USER_TOKEN) private usuarioToken: myTokenUserIndicator, private usuariosPrd: LoginAutenticacionService,
-    private routerPrd: Router,private modalPrd:ModalService) { }
+    private routerPrd: Router,private modalPrd:ModalService,
+    @Inject(MY_USER_DATA) private userSesion:BehaviorSubject<any>) { }
 
   ngOnInit(): void {
     this.usuario = this.usuarioToken.getValue;
     this.generalesPrd.serviciomenu().subscribe(datos => {
       this.mostrar = !this.mostrar;
+    });
+
+    this.userSesion.subscribe(datos =>{
+      console.log("Esta es la sesion",datos);
+      this.usuario = datos;
     });
   }
 
@@ -63,7 +69,7 @@ export class MenuComponent implements OnInit {
         this.routerPrd.navigateByUrl("/auth/login");
       }
     });
-  
+
   }
 
   public navegar(item: any) {

@@ -1,0 +1,62 @@
+<div *ngIf="arreglo && arreglo.length != 0;else sindatos">
+  <div *ngIf="arreglo && arreglo.length > 1" class="row mb-3">
+    <div class="col-1">
+      <select class="form-select" aria-label="Default select example">
+        <option selected>10</option>
+        <option value="1">15</option>
+        <option value="2">20</option>
+        <option value="3">50</option>
+      </select>
+    </div>
+  </div>
+  <table  class="table table-sm table-striped table-hover">
+    <thead>
+      <tr>
+        <th *ngFor="let item of tabla?.columnas" scope="col">{{item.nombre}}</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of arreglo[indiceSeleccionado];let indice = index;">
+        <td *ngFor="let columna of tabla.columnas" scope="row">{{columna.identificador == 'esActivo'? row[columna.identificador||'any']? "Si":"No": row[columna.identificador||'any']}}</td>
+        <td>
+          <div class="botones text-center">
+            <button *ngIf="modificar" type="button" class="btn btn-light icon" (click)="modificarmethod(row)"><i class="bi bi-pencil"></i></button>
+            <button *ngIf="eliminar" type="button" class="btn btn-danger icon"  (click)="eliminarmethod(row)"><i class="bi bi-trash"></i></button>
+            <button *ngIf="desglosar" type="button" class="btn btn-light icon"  (click)="desglosarmethod(row,indice)"><i class="bi bi-eye"></i></button>
+            <button  *ngIf="suscribir" (click)="suscribirMethod(row)" class="btn btn-primary inscribirmecurso">
+              <i class="bi bi-layers color-custom"></i>
+          </button>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="desploseContenido">
+          <td [colSpan]="tabla.columnas.length+1">
+              <ng-content></ng-content>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="arreglo && arreglo.length > 1" class="row">
+    <div class="col-12 text-center" style="    width: fit-content;
+    margin: auto;">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="btn btn-light" [class.disabled]="indiceSeleccionado <= 0" (click)="anterior()" ><i class="bi bi-arrow-left-circle-fill"></i></a></li>
+          <li *ngFor="let item of arreglo | slice:0:3;let indice = index;" class="page-item" (click)="seleccionarIndice(indice)"><a class="btn btn-light" [class.active]="indice == indiceSeleccionado">{{(indice+1)}}</a></li>
+          <li class="page-item"><a class="btn btn-light" [class.disabled]="indiceSeleccionado >= arreglo.length-1" (click)="siguiente()"><i class="bi bi-arrow-right-circle-fill"></i></a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+</div>
+<ng-template #sindatos>
+  <div class="row">
+    <div class="col-12 text-center">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        Sin datos para mostrar
+      </div>
+    </div>
+  </div>
+</ng-template>
