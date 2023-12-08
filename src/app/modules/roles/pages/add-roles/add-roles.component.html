@@ -1,117 +1,82 @@
 <div class="row barrasuperior mb-5 ml-2 mr-2">
   <div class="col titulo-outlet">
-      <button (click)="comeback()" class="btn-menu"><i  class="bi bi-arrow-left-square"></i></button>
+    <button (click)="mostrarmenu()" class="btn-menu"><i  class="bi bi-list"></i></button>
        <label>REGISTRAR NUEVO ROL</label>
   </div>
 </div>
 
 <main class="miformulario">
 	<div class="form-wrap">
-		<form id="survey-form">
+		<form [formGroup]="myForm" (ngSubmit)="enviar()" id="survey-form">
       <div class="row">
         <div class="col-12">
-          <header class="header">
-            <h3 id="title" class=" text-secondary">Registrar nuevo rol</h3>
-          </header>
+          <h2 id="title" class="fw-bold text-secondary">Registrar nuevo rol</h2>
         </div>
       </div>
 			<div class="row">
 				<div class="col-md-6">
-					<div class="form-group">
-						<label id="name-label" class="fw-bold" for="name">Nombre rol</label>
-						<input type="text" name="name" id="name" placeholder="Nombre rol" class="form-control" required>
-					</div>
+          <mat-form-field class="example-form-field"  color="primary">
+            <mat-label>Nombre rol</mat-label>
+            <input matInput type="text" formControlName="rol" >
+            <mat-error *ngIf="f.invalid && f.touched">Campo obligatorio</mat-error>
+          </mat-form-field>
 				</div>
 			</div>
 
 			<div class="row">
         <div class="accordion" id="accordionExample">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                Administración
-              </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-              data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="changesMade">
-                      <label class="form-check-label" for="changesMade">
-                        Roles
-                      </label>
-                      <div class="multiple">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="changesMade">
-                          <label class="form-check-label" for="changesMade">
-                            Agregar
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="changesMade">
-                          <label class="form-check-label" for="changesMade">
-                            Modificar
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="changesMade">
-                      <label class="form-check-label" for="changesMade">
-                        Usuarios
-                      </label>
-                      <div class="multiple">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="changesMade">
-                          <label class="form-check-label" for="changesMade">
-                            Agregar
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="changesMade">
-                          <label class="form-check-label" for="changesMade">
-                            Modificar
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="changesMade">
-                      <label class="form-check-label" for="changesMade">
-                        Seguimiento alumnos
-                      </label>
-                      <div class="multiple">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="changesMade">
-                          <label class="form-check-label" for="changesMade">
-                            Consultar
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <ng-container *ngFor="let mm of modulos">
+            <mat-accordion multi>
+              <mat-expansion-panel *ngFor="let modulo of mm.modulos">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{modulo.nombre}}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <mat-icon>menu</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
 
+                <div class="row">
+                  <div *ngFor="let submenu of modulo.submodulos" class="col-md-4">
+                    <div class="form-check">
+                      <input  [(ngModel)]="submenu.seleccionado" [ngModelOptions]="{standalone: true}"  class="form-check-input" type="checkbox" id="changesMade">
+                      <label class="form-check-label" for="changesMade">
+                        {{submenu.nombre}}
+                      </label>
+                      <div class="multiple">
+                        <div *ngFor="let permiso of submenu.permisos" class="form-check">
+                          <input [(ngModel)]="permiso.seleccionado" [ngModelOptions]="{standalone: true}" class="form-check-input" type="checkbox" id="changesMade">
+                          <label class="form-check-label" for="changesMade">
+                            {{permiso.nombre}}
+                          </label>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-md-4"></div>
                 </div>
-              </div>
-            </div>
+
+              </mat-expansion-panel>
+            </mat-accordion>
+            </ng-container>
+
+
           </div>
         </div>
 			</div>
-			<div class="row mt-5">
+      <mat-divider></mat-divider>
+
+		<footer>
+      <div class="row mt-5">
 				<div class="col-12 text-end">
-					<button type="submit" id="submit" class="btn btn-primary btn-block">Guardar</button>
+          <button mat-button type="button" (click)="cancelar()" color="accent">Cancelar</button>
+          <button mat-button type="submit" color="primary">Guardar</button>
 				</div>
 			</div>
+    </footer>
 
 		</form>
 	</div>

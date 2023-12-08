@@ -14,8 +14,8 @@ const routes: Routes = [
   { path: 'superadministracion', component: ContenidoComponent,canActivate:[protegerRutas],loadChildren:()=>import('./modules/roles/roles.module').then(m=>m.RolesModule)},
   { path: 'superadministracion', component: ContenidoComponent,canActivate:[protegerRutas],loadChildren:()=>import('./modules/usuarios/usuarios.module').then(m=>m.UsuariosModule)},
   { path: 'superadministracion', component: ContenidoComponent,canActivate:[protegerRutas],loadChildren:()=>import('./modules/clientes/clientes.module').then(m=>m.ClientesModule)},
-  //{ path: '**', redirectTo: '/auth/login', pathMatch: 'full' },
- // { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/auth/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
 ];
 
 @NgModule({

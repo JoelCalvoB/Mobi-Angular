@@ -5,6 +5,7 @@ import { ModalSeleccionarArchivosComponent } from './modal-seleccionar-archivos/
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { WidgetCargandoComponent } from './componentes/widget-cargando/widget-cargando.component';
 import { TablaGenericaComponent } from "./componentes/tabla-generica/tabla-generica.component";
+import { AngularMaterialModuleShared } from "./angular.material.module";
 
 @NgModule({
     declarations: [
@@ -12,7 +13,7 @@ import { TablaGenericaComponent } from "./componentes/tabla-generica/tabla-gener
         ModalSeleccionarArchivosComponent,
         WidgetCargandoComponent,
         TablaGenericaComponent],
-    imports:[CommonModule,FormsModule,ReactiveFormsModule],
-    exports:[SubirarchivosComponent,WidgetCargandoComponent,TablaGenericaComponent]
+    imports:[CommonModule,FormsModule,ReactiveFormsModule,AngularMaterialModuleShared],
+    exports:[SubirarchivosComponent,WidgetCargandoComponent,TablaGenericaComponent,AngularMaterialModuleShared]
 })
 export class SharedModule{}

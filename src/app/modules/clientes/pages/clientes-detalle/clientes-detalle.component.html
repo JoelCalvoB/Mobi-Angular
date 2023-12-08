@@ -1,6 +1,74 @@
 <div class="row barrasuperior mb-5 ml-2 mr-2">
   <div class="col titulo-outlet">
-      <button (click)="comeback()" class="btn-menu"><i  class="bi bi-arrow-left-square"></i></button>
+    <button (click)="mostrarmenu()" class="btn-menu"><i  class="bi bi-list"></i></button>
        <label>REGISTRAR NUEVO CLIENTE</label>
   </div>
 </div>
+
+
+<main class="miformulario">
+	<div class="form-wrap">
+
+		<form [formGroup]="myForm" (ngSubmit)="enviar()" id="survey-form">
+      <div class="row">
+        <div class="col-12">
+          <h2 id="title" class="fw-bold text-secondary">Registrar nuevo cliente</h2>
+        </div>
+      </div>
+			<div class="row">
+				<div class="col-md-6">
+          <mat-form-field class="example-form-field"  color="primary">
+            <mat-label>Nombre cliente</mat-label>
+            <input matInput type="text" formControlName="nombre" >
+            <mat-error *ngIf="f['nombre'].invalid && f['nombre'].touched">Campo obligatorio</mat-error>
+          </mat-form-field>
+				</div>
+        <div class="col-md-6">
+          <mat-form-field class="example-form-field"  color="primary">
+            <mat-label>RFC</mat-label>
+            <input matInput type="text" formControlName="rfc" >
+            <mat-error *ngIf="f['rfc'].invalid && f['rfc'].touched">Campo obligatorio</mat-error>
+          </mat-form-field>
+				</div>
+        <div class="col-md-6">
+          <mat-form-field class="example-form-field"  color="primary">
+            <mat-label>Razón social</mat-label>
+            <input matInput type="text" formControlName="razonSocial" >
+            <mat-error *ngIf="f['razonSocial'].invalid && f['razonSocial'].touched">Campo obligatorio</mat-error>
+          </mat-form-field>
+				</div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label>Versiones</mat-label>
+            <mat-select formControlName="version" multiple>
+              <mat-select-trigger>
+                {{f["version"].value?.[0] || ''}}
+                <span *ngIf="(f['version'].value?.length || 0) > 1" class="example-additional-selection">
+                  (+{{(f['version'].value?.length || 0) - 1}} {{f['version'].value?.length === 2 ? 'Otro' : 'Otros'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let version of usuario.rol.empresas.versiones" [value]="version.idVersion">{{version.nombre}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-checkbox class="example-margin" formControlName="esCliente">Es cliente</mat-checkbox>
+				</div>
+
+
+
+			</div>
+      <mat-divider></mat-divider>
+
+		<footer>
+      <div class="row mt-5">
+				<div class="col-12 text-end">
+          <button (click)="cancelar()" type="button" mat-button type="submit" color="accent">Cancelar</button>
+          <button mat-button type="submit" color="primary">Guardar</button>
+				</div>
+			</div>
+    </footer>
+
+		</form>
+	</div>
+</main>
