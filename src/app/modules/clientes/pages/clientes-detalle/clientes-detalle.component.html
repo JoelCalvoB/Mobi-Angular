@@ -10,9 +10,53 @@
 	<div class="form-wrap">
 
 		<form [formGroup]="myForm" (ngSubmit)="enviar()" id="survey-form">
-      <div class="row">
+      <div class="row mb-2" >
         <div class="col-12">
           <h2 id="title" class="fw-bold text-secondary">Registrar nuevo cliente</h2>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="row">
+        <div class="col-12">
+          <h3 id="title" class="fw-bold text-secondary">Logo de la empresa (opcional)</h3>
+        </div>
+      </div>
+      <div class="row mb-3 ">
+        <div class="col-md-6 text-center">
+
+          <app-subirarchivo formControlName="foto" [titulo]="'Seleccionar logo'"></app-subirarchivo>
+          <mat-error *ngIf="f['foto'].invalid && f['foto'].touched">Campo obligatorio</mat-error>
+        </div>
+        <div style="border-left: 1px solid rgb(181, 181, 181);" class="col-md-6 text-start">
+
+          <div class="row">
+            <div class="col-12">
+              <h3 id="title" class="fw-bold text-secondary">Seleccionar color marca</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field class="example-form-field"  color="primary">
+                <mat-label>Color primario</mat-label>
+                <input matInput type="color" formControlName="colorprimario" >
+              </mat-form-field>
+            </div>
+            <div class="col-md-12">
+              <mat-form-field class="example-form-field"  color="primary">
+                <mat-label>Color secundario</mat-label>
+                <input matInput type="color" formControlName="colorsecundario" >
+              </mat-form-field>
+            </div>
+            <div class="col-12 text-start">
+              <button (click)="vistaPrevia()" type="button" mat-button type="button" mat-raised-button color="{{!vista?'primary':'accent'}}" >{{!vista?'Vista Previa':'Cancelar'}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="row">
+        <div class="col-12">
+          <h3 id="title" class="fw-bold text-secondary">Datos del cliente</h3>
         </div>
       </div>
 			<div class="row">
@@ -49,6 +93,7 @@
               </mat-select-trigger>
               <mat-option *ngFor="let version of usuario.rol.empresas.versiones" [value]="version.idVersion">{{version.nombre}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="f['version'].invalid && f['version'].touched">Campo obligatorio</mat-error>
           </mat-form-field>
         </div>
         <div class="col-md-6">
@@ -60,7 +105,8 @@
 			</div>
       <mat-divider></mat-divider>
 
-		<footer>
+
+		<footer *ngIf="!vista">
       <div class="row mt-5">
 				<div class="col-12 text-end">
           <button (click)="cancelar()" type="button" mat-button type="submit" color="accent">Cancelar</button>

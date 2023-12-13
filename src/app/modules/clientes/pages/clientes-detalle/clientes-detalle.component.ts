@@ -1,3 +1,4 @@
+import { Colores } from './../../../../core/modelos/usuarioLogin';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -9,7 +10,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { TYPE_DIALOG } from 'src/app/core/modelos/modales';
 import { Usuario } from 'src/app/core/modelos/usuarioLogin';
-import { MY_USER_DATA } from 'src/app/core/tokens/tokensProviders';
+import { MY_COLOR, MY_USER_DATA } from 'src/app/core/tokens/tokensProviders';
 import { EmpresasService } from 'src/app/shared/services/empresas.service';
 import { GeneralesService } from 'src/app/shared/services/generales.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
@@ -33,13 +34,15 @@ export class ClientesDetalleComponent implements OnInit {
 
   public myForm!: FormGroup;
   public usuario!: Usuario;
+  public vista:boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private empresasPrd: EmpresasService,
     private modalPrd: ModalService,
     @Inject(MY_USER_DATA) private userPrd: BehaviorSubject<any>,
-    private generalesPrd:GeneralesService
+    private generalesPrd:GeneralesService,
+    @Inject(MY_COLOR) private colores:BehaviorSubject<Colores>
   ) {}
 
   ngOnInit() {
@@ -58,11 +61,14 @@ export class ClientesDetalleComponent implements OnInit {
 
   private createForm() {
     return this.fb.group({
+      foto:[''],
       nombre: ['', Validators.required],
       rfc: ['', [Validators.required]],
       razonSocial: ['', [Validators.required]],
       esCliente: [false, Validators.required],
-      version: [],
+      version: ['',Validators.required],
+      colorprimario:['#fc4a4a'],
+      colorsecundario:['#f4f2f2']
     });
   }
 
@@ -74,6 +80,8 @@ export class ClientesDetalleComponent implements OnInit {
     return this.myForm.controls;
   }
   public enviar() {
+
+    console.log("Guardar",this.myForm.controls);
 
     if (this.myForm.invalid) {
       Object.values(this.myForm.controls).forEach((control) => {
@@ -119,5 +127,16 @@ export class ClientesDetalleComponent implements OnInit {
           });
         }
       });
+  }
+
+  public vistaPrevia(){
+    const defadefectoult = {fondo:'#f4f2f2',primario:'#fc4a4a'}
+    this.vista = !this.vista;
+      if(!this.vista){
+        this.colores.next(defadefectoult);
+      }else{
+        this.colores.next({primario:this.myForm.value.colorprimario,fondo:this.myForm.value.colorsecundario});
+      }
+
   }
 }

@@ -59,6 +59,7 @@ $mobie-frontend-theme: mat.define-light-theme((
 @import 'https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&display=swap';
 @import './styles/estiloformulario.scss';
 @import './styles/angularmaterialstyles.scss';
+@import './styles/imagenes.scss';
 
 
 
@@ -70,5 +71,8 @@ $mobie-frontend-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+app-subirarchivo{
+  display: inline-block;
+}
 
 

@@ -1,0 +1,37 @@
+<div class="logocaja anulartop" style="border-radius: 100%;" [class.obligatorio]="tocado" [ngClass]="{'errorimagen':errorimagen,'seleccionado':seleccionado}" appManipularfiles (fromManipularFiles)="recibir($event)">
+
+    <div *ngIf="!cargando">
+        <p *ngIf="buffer == undefined && !mostrarImagenUrl" style="margin-top:3em" class="titulo">Arrastra o sube aquí el archivo</p>
+        <p *ngIf="buffer == undefined && !mostrarImagenUrl" class="mostrar"></p>
+        <p *ngIf="buffer == undefined && !mostrarImagenUrl" class="mostrar2">Archivo seleccionado no es una imagen.</p>
+        <div *ngIf="buffer == undefined && !mostrarImagenUrl" class="col-12 text-right">
+          <p style="    background-color: #edebeb;
+          font-weight: 700;
+          border: 0;
+          font-size: medium;
+          margin: auto;
+          padding: 2px 10px;
+          color: #797979;">{{titulo}}</p>
+            <button style="width: 50px;
+            height: 50px;
+            border-radius: 50%;" (click)="abrirArchivo()" type="button" class="botonestilos "><small style="    display: block;
+            width: max-content;    margin: auto;
+
+        "><i style="font-size: larger;" class="bi bi-camera-fill"></i>
+          <br>
+        {{''}}</small></button>
+        </div>
+        <div *ngIf="buffer != undefined || mostrarImagenUrl" class="col-12">
+            <img alt="" *ngIf="!mostrarImagenUrl" [src]="sanitize('data:image/jpg;base64, ' + arrayBufferToBase64(buffer))" alt="" srcset="">
+            <img alt="" *ngIf="mostrarImagenUrl" [src]="recibiendoImagen">
+            <p *ngIf="!mostrarImagenUrl" class="cambia" style="    color: #4cc1b0;"><strong style="font-weight: bolder;">Tamaño </strong> {{tamanio()}}KB</p>
+
+            <i aria-hidden="true" (click)="eliminarImagen()" class="far fa-times-circle" id="closeid"></i>
+        </div>
+    </div>
+
+    <div style="    margin-left: calc(50% - 1rem);
+    margin-top: calc(50% - 3.5rem);" *ngIf="cargando" class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>

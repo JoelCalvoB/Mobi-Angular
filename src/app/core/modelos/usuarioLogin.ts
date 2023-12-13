@@ -3,13 +3,19 @@ export interface Usuario {
     correo: string,
     empresa: string,
     rol: Rol;
+    primerApellido:string,
+    segundoApellido:string,
+    telefono:string,
+    esActivo:boolean,
+    id:number
 }
 
 
 export interface Rol {
     nombre: string,
     modulos: Modulo[],
-    empresas:Empresa
+    empresas:Empresa,
+    id:number
 }
 
 export interface Modulo {
@@ -54,4 +60,10 @@ export interface Versiones{
      esActivo:boolean;
      empresas:Empresa[];
      modulos:Modulo[];
+}
+
+
+export interface Colores{
+  primario:string,
+  fondo:string
 }

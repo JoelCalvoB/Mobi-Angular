@@ -12,7 +12,7 @@ import { MenuComponent } from './layout/contenido/menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { InterceptorService } from './core/interceptors/interceptor.service';
-import { MY_MODAL_MESSAGE, MY_MODAL_REPONSE, MY_USER_DATA, MY_USER_TOKEN } from './core/tokens/tokensProviders';
+import { MY_COLOR, MY_MODAL_MESSAGE, MY_MODAL_REPONSE, MY_USER_DATA, MY_USER_TOKEN } from './core/tokens/tokensProviders';
 import { BehaviorSubject } from 'rxjs';
 import { myTokenUserIndicator } from './core/tokens/tokenRecurso';
 
@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
 import { ModalRespuesta, TYPE_DIALOG } from './core/modelos/modales';
 import { Unary } from '@angular/compiler';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Colores } from './core/modelos/usuarioLogin';
 
 var global = window;
 Amplify.configure(environment.configuracionCognito);
@@ -50,7 +51,8 @@ Amplify.configure(environment.configuracionCognito);
     { provide: MY_USER_TOKEN, useValue: new myTokenUserIndicator()},
     { provide: MY_MODAL_MESSAGE, useValue: new BehaviorSubject({})},
     { provide: MY_MODAL_REPONSE, useValue: new BehaviorSubject<ModalRespuesta>({type:TYPE_DIALOG.NOTHING,datos:Unary})},
-    { provide: MY_USER_DATA,useValue:new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem("datosusuario")||'{}'))}
+    { provide: MY_USER_DATA,useValue:new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem("datosusuario")||'{}'))},
+    { provide: MY_COLOR,useValue:new BehaviorSubject<Colores>({fondo:'#f4f2f2',primario:'#fc4a4a'})}
   ],
   bootstrap: [AppComponent]
 })

@@ -1,107 +1,101 @@
 <div class="row barrasuperior mb-5 ml-2 mr-2">
   <div class="col titulo-outlet">
-      <button (click)="comeback()" class="btn-menu"><i  class="bi bi-arrow-left-square"></i></button>
+    <button (click)="mostrarmenu()" class="btn-menu"><i  class="bi bi-list"></i></button>
        <label>REGISTRAR NUEVO USUARIO</label>
   </div>
 </div>
 
 
+
 <main class="miformulario">
 	<div class="form-wrap">
-		<form id="survey-form">
+
+		<form [formGroup]="myForm" (ngSubmit)="enviar()" id="survey-form">
       <div class="row">
         <div class="col-12">
-          <header class="header">
-            <h3 id="title" class=" text-secondary">Registrar nuevo rol</h3>
-          </header>
+          <h2 id="title" class="fw-bold text-secondary">Registrar nuevo usuario</h2>
         </div>
       </div>
 			<div class="row">
 				<div class="col-md-6">
-					<div class="form-group">
-						<label id="name-label" for="name">Nombre rol</label>
-						<input type="text" name="name" id="name" placeholder="Nombre rol" class="form-control" required>
-					</div>
+          <mat-form-field class="example-form-field"  color="primary">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" formControlName="nombre" >
+            <mat-error *ngIf="f['nombre'].invalid && f['nombre'].touched">Campo obligatorio</mat-error>
+          </mat-form-field>
 				</div>
-				<div class="col-md-6">
-					<div class="form-group">
-						<label id="email-label" for="email">Email</label>
-						<input type="email" name="email" id="email" placeholder="Enter your email" class="form-control" required>
-					</div>
+        <div class="col-md-6">
+          <mat-form-field class="example-form-field"  color="primary">
+            <mat-label>Primer apellido</mat-label>
+            <input matInput type="text" formControlName="primerApellido" >
+            <mat-error *ngIf="f['primerApellido'].invalid && f['primerApellido'].touched">Campo obligatorio</mat-error>
+          </mat-form-field>
+				</div>
+        <div class="col-md-6">
+          <mat-form-field class="example-form-field"  color="primary">
+            <mat-label>Segundo apellido</mat-label>
+            <input matInput type="text" formControlName="segundoApellido" >
+            <mat-error *ngIf="f['segundoApellido'].invalid && f['segundoApellido'].touched">Campo obligatorio</mat-error>
+          </mat-form-field>
+				</div>
+        <div class="col-md-6">
+          <mat-form-field class="example-form-field"  color="primary">
+            <mat-label>Usuario o Correo electrónico</mat-label>
+            <input matInput type="text" formControlName="correo" >
+            <mat-error *ngIf="f['correo'].invalid && f['correo'].touched">Campo obligatorio</mat-error>
+          </mat-form-field>
+				</div>
+        <div class="col-md-6">
+          <mat-form-field class="example-form-field"  color="primary">
+            <mat-label>Teléfono</mat-label>
+            <input matInput type="text" formControlName="telefono" >
+            <mat-error *ngIf="f['telefono'].invalid && f['telefono'].touched">Campo obligatorio</mat-error>
+          </mat-form-field>
+				</div>
+        <div class="col-md-7">
+          <mat-form-field style="width: 100%;" class="fecha">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input formControlName="fechaNacimiento" matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="f['fechaNacimiento'].invalid && f['fechaNacimiento'].touched">Campo obligatorio</mat-error>
+          </mat-form-field>
+        </div>
+
+			</div>
+      <div class="row mt-5">
+        <div class="col-md-6">
+          <mat-form-field class="example-form-field"  color="primary">
+            <mat-label>Contraseña o llave</mat-label>
+            <input matInput type="text" formControlName="password" >
+            <mat-error *ngIf="f['password'].invalid && f['password'].touched">Campo obligatorio</mat-error>
+          </mat-form-field>
+				</div>
+        <div formGroupName="rol" class="col-md-6">
+          <mat-form-field>
+            <mat-label>Seleccionar rol</mat-label>
+            <mat-select formControlName="id">
+              <mat-option *ngFor="let rol of roles" [value]="rol.id">
+                {{rol.nombre}}
+              </mat-option>
+            </mat-select>
+             <mat-error *ngIf="f['rol'].invalid && f['rol'].touched">Campo obligatorio</mat-error>
+
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+
+		<footer>
+      <div class="row mt-5">
+				<div class="col-12 text-end">
+          <button (click)="cancelar()" type="button" mat-button type="submit" color="accent">Cancelar</button>
+          <button mat-button type="submit" color="primary">Guardar</button>
 				</div>
 			</div>
-
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<label id="number-label" for="number">Age <small>(optional)</small></label>
-						<input type="number" name="age" id="number" min="10" max="99" class="form-control" placeholder="Age" >
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="form-group">
-						<label>current role</label>
-						<select id="dropdown" name="role" class="form-control" required>
-							<option disabled selected value>Select</option>
-							<option value="student">Student</option>
-							<option value="job">Full Time Job</option>
-							<option value="learner">Full Time Learner</option>
-							<option value="preferNo">Prefer not to say</option>
-							<option value="other">Other</option>
-						</select>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<label>Would you recommend survey to a friend?</label>
-						<div class="custom-control custom-radio custom-control-inline">
-							<input type="radio" id="customRadioInline1" value="Definitely" name="customRadioInline1" class="custom-control-input" checked="">
-							<label class="custom-control-label" for="customRadioInline1">Definitely</label>
-						</div>
-						<div class="custom-control custom-radio custom-control-inline">
-							<input type="radio" id="customRadioInline2" value="Maybe" name="customRadioInline1" class="custom-control-input">
-							<label class="custom-control-label" for="customRadioInline2">Maybe</label>
-						</div>
-						<div class="custom-control custom-radio custom-control-inline">
-							<input type="radio" id="customRadioInline3" value="Not sure" name="customRadioInline1" class="custom-control-input">
-							<label class="custom-control-label" for="customRadioInline3">Not sure</label>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="form-group">
-						<label>This survey useful yes or no?</label>
-						<div class="custom-control custom-checkbox custom-control-inline">
-							<input type="checkbox" class="custom-control-input" name="yes" value="yes" id="yes" checked="">
-							<label class="custom-control-label" for="yes">Yes</label>
-						</div>
-						<div class="custom-control custom-checkbox custom-control-inline">
-							<input type="checkbox" class="custom-control-input" name="no" value="no" id="no">
-							<label class="custom-control-label" for="no">No</label>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-			<div class="row">
-				<div class="col-md-12">
-					<div class="form-group">
-						<label>Leave Message</label>
-						<textarea  id="comments" class="form-control" name="comment" placeholder="Enter your comment here..."></textarea>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-4">
-					<button type="submit" id="submit" class="btn btn-primary btn-block">Guardar</button>
-				</div>
-			</div>
+    </footer>
 
 		</form>
 	</div>
+</main>
