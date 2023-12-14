@@ -91,7 +91,7 @@
                   (+{{(f['version'].value?.length || 0) - 1}} {{f['version'].value?.length === 2 ? 'Otro' : 'Otros'}})
                 </span>
               </mat-select-trigger>
-              <mat-option *ngFor="let version of usuario.rol.empresas.versiones" [value]="version.idVersion">{{version.nombre}}</mat-option>
+              <mat-option *ngFor="let version of empresa.versiones" [value]="version.idVersion">{{version.nombre}}</mat-option>
             </mat-select>
             <mat-error *ngIf="f['version'].invalid && f['version'].touched">Campo obligatorio</mat-error>
           </mat-form-field>

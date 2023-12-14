@@ -50,7 +50,11 @@ export interface Empresa{
   nombre:string,
   razonSocial:string,
   versiones:Versiones[]
-  seleccionar:boolean
+  seleccionar:boolean,
+  colorsecundario:string,
+  colorprimario:string,
+  colorletras:string,
+  urlfoto:string
 }
 
 

@@ -1,4 +1,4 @@
-import { Colores } from './../../../../core/modelos/usuarioLogin';
+import { Colores, Empresa } from './../../../../core/modelos/usuarioLogin';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -10,7 +10,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { TYPE_DIALOG } from 'src/app/core/modelos/modales';
 import { Usuario } from 'src/app/core/modelos/usuarioLogin';
-import { MY_COLOR, MY_USER_DATA } from 'src/app/core/tokens/tokensProviders';
+import { MY_COLOR, MY_EMPRESA_DATA, MY_USER_DATA } from 'src/app/core/tokens/tokensProviders';
 import { EmpresasService } from 'src/app/shared/services/empresas.service';
 import { GeneralesService } from 'src/app/shared/services/generales.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
@@ -41,6 +41,8 @@ export class ClientesDetalleComponent implements OnInit {
 
   public usuarios:Usuario[] = [];
 
+  public empresa!:Empresa;
+
   constructor(
     private fb: FormBuilder,
     private empresasPrd: EmpresasService,
@@ -48,7 +50,8 @@ export class ClientesDetalleComponent implements OnInit {
     @Inject(MY_USER_DATA) private userPrd: BehaviorSubject<any>,
     private generalesPrd:GeneralesService,
     @Inject(MY_COLOR) private colores:BehaviorSubject<Colores>,
-    private usuariosPrd:UsuariosService
+    private usuariosPrd:UsuariosService,
+    @Inject(MY_EMPRESA_DATA) private empresaPrd:BehaviorSubject<Empresa>,
   ) {}
 
   ngOnInit() {
@@ -57,6 +60,9 @@ export class ClientesDetalleComponent implements OnInit {
     this.userPrd.subscribe((datos) => {
       console.log('santiago', datos);
       this.usuario = datos;
+    });
+    this.empresaPrd.subscribe(datos =>{
+      this.empresa = datos;
     });
 
     this.usuariosPrd.getAll().subscribe(datos =>{

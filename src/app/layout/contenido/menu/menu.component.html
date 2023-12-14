@@ -1,10 +1,10 @@
 <div class="d-flex align-items-start contenido">
     <div [@abriendomenu]="mostrar?'abrir':'cerrar'" class="nav menu-contenido-personalizar flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <div class="cabecera">
-            <img src="https://empresas1.herokuapp.com/assets/imgs/logoresutaurante.png"
+            <img class="mb-3" src="https://empresas1.herokuapp.com/assets/imgs/logoresutaurante.png"
                 alt="" srcset="">
             <span>
-                {{usuario.rol.empresas.nombre}}
+                {{empresa.nombre}}
             </span>
             <span>Empleado: {{usuario.nombre}}</span>
             <span>Rol: {{usuario.rol.nombre}}</span>

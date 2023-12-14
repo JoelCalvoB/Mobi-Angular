@@ -2,9 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { GeneralesService } from 'src/app/shared/services/generales.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { LoginAutenticacionService } from 'src/app/shared/services/login-autenticacion.service';
-import { Modulo, Usuario } from 'src/app/core/modelos/usuarioLogin';
+import { Colores, Empresa, Modulo, Usuario } from 'src/app/core/modelos/usuarioLogin';
 import { BehaviorSubject } from 'rxjs';
-import { MY_USER_DATA, MY_USER_TOKEN } from 'src/app/core/tokens/tokensProviders';
+import { MY_COLOR, MY_EMPRESA_DATA, MY_USER_DATA, MY_USER_TOKEN } from 'src/app/core/tokens/tokensProviders';
 import { myTokenUserIndicator } from 'src/app/core/tokens/tokenRecurso';
 import { Router } from '@angular/router';
 import { ModalService } from 'src/app/shared/services/modal.service';
@@ -36,10 +36,13 @@ export class MenuComponent implements OnInit {
 
   public mostrar: boolean = true;
   public usuario!: Usuario;
+  public empresa!:Empresa;
 
   constructor(private generalesPrd: GeneralesService, @Inject(MY_USER_TOKEN) private usuarioToken: myTokenUserIndicator, private usuariosPrd: LoginAutenticacionService,
     private routerPrd: Router,private modalPrd:ModalService,
-    @Inject(MY_USER_DATA) private userSesion:BehaviorSubject<any>) { }
+    @Inject(MY_USER_DATA) private userSesion:BehaviorSubject<any>,
+    @Inject(MY_EMPRESA_DATA) private empresaSesion:BehaviorSubject<Empresa>,
+    @Inject(MY_COLOR) private colores:BehaviorSubject<Colores>) { }
 
   ngOnInit(): void {
     this.usuario = this.usuarioToken.getValue;
@@ -50,6 +53,10 @@ export class MenuComponent implements OnInit {
     this.userSesion.subscribe(datos =>{
       console.log("Esta es la sesion",datos);
       this.usuario = datos;
+    });
+    this.empresaSesion.subscribe(datos =>{
+        this.empresa = datos;
+        this.colores.next({fondo:datos.colorsecundario,primario:datos.colorprimario});
     });
   }
 

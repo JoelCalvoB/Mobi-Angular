@@ -110,7 +110,7 @@ export class LoginComponent implements OnInit {
   public seleccionarEmpresa(){
     const empresa = this.empresas.find(s => s.seleccionar);
     sessionStorage.setItem("empresa",JSON.stringify(empresa));
-    this.userSesion.next(empresa);
+    this.empresaSesion.next(empresa);
     sessionStorage.setItem('datosusuario',JSON.stringify(this.datos));
 
     this.userSesion.next(this.datos);
