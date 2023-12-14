@@ -70,40 +70,47 @@ export class AddRolesComponent implements OnInit {
     this.modalPrd.showMessageDialog({message:'',typeDialog:TYPE_DIALOG.QUESTION}).then(datos =>{
       if(datos.datos){
 
+
+        const arregloPermisos:any = [];
+        this.modulos.forEach(s =>{
+
+
+           s.modulos.forEach(modulos =>{
+            modulos.submodulos.forEach(submodulo =>{
+              if(submodulo.seleccionado){
+
+                submodulo.permisos.forEach(permiso =>{
+                  if(permiso.seleccionado){
+                    const requestpermisosmodulos = {
+                      permiso : {
+                           id:permiso.id
+                      },
+                      submodulo:{
+                        idSubmodulo:submodulo.idSubmodulo
+                      },
+                      modulo:{
+                        idModulo : modulos.idModulo
+                      }
+                     }
+                     arregloPermisos.push(requestpermisosmodulos);
+                  }
+                 });
+              }
+
+            });
+           });
+
+        })
+
          const request = {
             nombre : this.myForm.value.rol,
-            permisosxsubmodulos:[...this.modulos.map(s =>{
-
-              const arregloPermisos:any = [];
-
-               s.modulos.forEach(modulos =>{
-                modulos.submodulos.forEach(submodulo =>{
-                  if(submodulo.seleccionado){
-
-                    submodulo.permisos.forEach(permiso =>{
-                      if(permiso.seleccionado){
-                        const requestpermisosmodulos = {
-                          permiso : {
-                               id:permiso.id
-                          },
-                          submodulo:{
-                            idSubmodulo:submodulo.idSubmodulo
-                          },
-                          modulo:{
-                            idModulo : modulos.idModulo
-                          }
-                         }
-                         arregloPermisos.push(requestpermisosmodulos);
-                      }
-                     });
-                  }
-
-                });
-               });
-               return arregloPermisos;
-
-            })]
+            permisosxsubmodulos:arregloPermisos
          }
+
+
+
+         console.log(request);
+
 
          this.modalPrd.showLoading("Guardando registro");
          this.rolesPrd.guardar(request).subscribe(datos =>{
