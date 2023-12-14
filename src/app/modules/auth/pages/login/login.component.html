@@ -1,8 +1,8 @@
 <div  class="row vh-100">
     <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6  col-sm-12 col-xs-12 sinborder" style="display: flex; justify-content: center; align-items: center;">
-        <div class="row" style="z-index: 1;">
+        <div *ngIf="!masempresas;else mostrarempresas" class="row" style="z-index: 1;">
             <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-    
+
                 <div class="form-group row ">
                     <div class="row">
                         <img style="    width: 12em;" src="../../../../../assets/imagenes/logochef.svg" class="rounded mx-auto d-block" alt="" srcset="">
@@ -26,9 +26,9 @@
                               </div>
                         </div>
                     </div>
-                   
-            
-            
+
+
+
                     <div class="form-floating mb-3 col-12 passwordinput">
                         <input  formControlName="password" [class.is-invalid]="f.password.touched && f.password.invalid" [class.is-valid]="f.validpassword.touched && f.validpassword.valid" [type]="verPassword?'text':'password'" class="form-control" id="floatingInput" >
                         <span *ngIf="vacio(f.password.value) && !verPassword" (click)="verPassword=true" class="material-icons mr-4 alerta">
@@ -38,7 +38,7 @@
                                 visibility_off
                                 </span>
                         <label for="floatingInput">Contraseña</label>
-                 
+
                         <div  class="invalid-feedback">
                             <div *ngIf="f.password.touched && f.password.errors?.required" class="alert alert-danger" role="alert">
                                 <span class="material-icons mr-4 alerta">
@@ -47,12 +47,12 @@
                                 <span >Campo requerido</span>
                               </div>
                         </div>
-            
-                    
+
+
                    </div>
-            
-            
-            
+
+
+
                     <div class="mb-3 col-12">
                         <label class="contenedorInputCheckRadio"> Deseo recordar la sesión
                             <input formControlName="mantener" [class.is-invalid]="f.mantener.touched && f.mantener.invalid"  id="esAjusteMensualIsr" type="checkbox">
@@ -65,7 +65,7 @@
                             <span class="checkmark"></span>
                           </label>
                           <div  class="invalid-feedback">
-                           
+
                         </div>
                     </div>
                     <div class="d-grid gap-2">
@@ -82,9 +82,33 @@
                 </div>
             </form>
         </div>
+        <ng-template #mostrarempresas>
+          <div style="display: flex; flex-direction: column;">
+            <div class="m-1"  style="z-index: 1;    display: flex;
+            gap: 7px;
+            flex-wrap: wrap;">
+
+              <div *ngFor="let item of empresas" class=" ">
+                  <div class="bloque" [class.seleccionado]="item.seleccionar" (click)="seleccionar(item)">
+                    <div class="bloque-body">
+                         <img src="../../../../../assets/imagenes/logochef.svg" alt="">
+                          <p>{{item.nombre}}</p>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button  (click)="seleccionarEmpresa()" class="btn btn-primary foco">
+                Seleccionar
+              </button>
+            </div>
+          </div>
+        </ng-template>
     </div>
     <div style="border: 0;" class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 principal-background " >
-      
+
         <div class="text-center d-flex justify-content-center acomodando" >
             <div class="text-white align-self-center ">
                 <h1 class="texto1" >Bienvenido a Atiendelos.</h1>
@@ -95,12 +119,12 @@
             </div>
             </div>
         </div>
-       
-        
+
+
         <div class="custom-shape-divider-bottom-1666333013">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="1" d="M0,128L34.3,154.7C68.6,181,137,235,206,240C274.3,245,343,203,411,160C480,117,549,75,617,64C685.7,53,754,75,823,101.3C891.4,128,960,160,1029,149.3C1097.1,139,1166,85,1234,69.3C1302.9,53,1371,75,1406,85.3L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
         </div>
-        
+
     </div>
 </div>
 

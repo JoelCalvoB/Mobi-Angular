@@ -14,6 +14,7 @@ import { MY_COLOR, MY_USER_DATA } from 'src/app/core/tokens/tokensProviders';
 import { EmpresasService } from 'src/app/shared/services/empresas.service';
 import { GeneralesService } from 'src/app/shared/services/generales.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
+import { UsuariosService } from 'src/app/shared/services/usuarios.service';
 
 @Component({
   selector: 'app-clientes-detalle',
@@ -22,6 +23,8 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 })
 export class ClientesDetalleComponent implements OnInit {
   toppings = new FormControl('');
+
+  panelOpenState = false;
 
   toppingList: string[] = [
     'Extra cheese',
@@ -36,13 +39,16 @@ export class ClientesDetalleComponent implements OnInit {
   public usuario!: Usuario;
   public vista:boolean = false;
 
+  public usuarios:Usuario[] = [];
+
   constructor(
     private fb: FormBuilder,
     private empresasPrd: EmpresasService,
     private modalPrd: ModalService,
     @Inject(MY_USER_DATA) private userPrd: BehaviorSubject<any>,
     private generalesPrd:GeneralesService,
-    @Inject(MY_COLOR) private colores:BehaviorSubject<Colores>
+    @Inject(MY_COLOR) private colores:BehaviorSubject<Colores>,
+    private usuariosPrd:UsuariosService
   ) {}
 
   ngOnInit() {
@@ -51,6 +57,10 @@ export class ClientesDetalleComponent implements OnInit {
     this.userPrd.subscribe((datos) => {
       console.log('santiago', datos);
       this.usuario = datos;
+    });
+
+    this.usuariosPrd.getAll().subscribe(datos =>{
+        this.usuarios = datos;
     });
   }
 
@@ -68,7 +78,8 @@ export class ClientesDetalleComponent implements OnInit {
       esCliente: [false, Validators.required],
       version: ['',Validators.required],
       colorprimario:['#fc4a4a'],
-      colorsecundario:['#f4f2f2']
+      colorsecundario:['#f4f2f2'],
+      usuarios:['',Validators.required]
     });
   }
 
@@ -116,6 +127,11 @@ export class ClientesDetalleComponent implements OnInit {
                 return { idVersion: s };
               }),
             ],
+            usuarios: [
+              ...this.myForm.value.usuarios.map((s: any) => {
+                return { id: s };
+              }),
+            ]
           };
           this.empresasPrd.guardar(request).subscribe((datos) => {
             console.log('Empresa guardada con exito', datos);

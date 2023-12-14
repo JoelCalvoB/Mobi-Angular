@@ -105,6 +105,38 @@
 			</div>
       <mat-divider></mat-divider>
 
+      <div class="row mt-4">
+        <div class="col-12">
+          <mat-accordion>
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Contacto inicial
+                </mat-panel-title>
+                <mat-panel-description>
+                  Usuario que iniciara sesión en la empresa
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="col-md-8">
+                <mat-form-field style="width: 100%;">
+                  <mat-label>Seleccionar usuario</mat-label>
+                  <mat-select formControlName="usuarios" multiple>
+                    <mat-select-trigger>
+                      {{f["usuarios"].value?.[0] || ''}}
+                      <span *ngIf="(f['usuarios'].value?.length || 0) > 1" class="example-additional-selection">
+                        (+{{(f['usuarios'].value?.length || 0) - 1}} {{f['usuarios'].value?.length === 2 ? 'Otro' : 'Otros'}})
+                      </span>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let user of usuarios" [value]="user.id">{{user.correo + ' '+user.nombre}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="f['usuarios'].invalid && f['usuarios'].touched">Campo obligatorio</mat-error>
+                </mat-form-field>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+
 
 		<footer *ngIf="!vista">
       <div class="row mt-5">

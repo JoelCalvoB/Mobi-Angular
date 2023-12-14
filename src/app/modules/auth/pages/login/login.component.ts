@@ -6,8 +6,9 @@ import { CognitoResponse, TYPE_ERROR_COGNITO } from 'src/app/core/modelos/modelo
 import { AutenticacionCognitoService } from 'src/app/shared/services/autenticacion-cognito.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { LoginAutenticacionService } from '../../../../shared/services/login-autenticacion.service';
-import { MY_USER_DATA } from 'src/app/core/tokens/tokensProviders';
+import { MY_EMPRESA_DATA, MY_USER_DATA } from 'src/app/core/tokens/tokensProviders';
 import { BehaviorSubject } from 'rxjs';
+import { Empresa } from 'src/app/core/modelos/usuarioLogin';
 
 @Component({
   selector: 'app-login',
@@ -19,10 +20,14 @@ export class LoginComponent implements OnInit {
   public formGroup!: FormGroup;
   public verPassword: boolean = false;
   public cargando: boolean = false;
+  public masempresas:boolean = false;
+  public empresas:Empresa[] = [];
+  public datos:any;
   activo: boolean = false;
   okPassword: boolean = false;
   constructor(private modalPrd: ModalService, private fb: FormBuilder, private router: Router, private loginPrd: LoginAutenticacionService,
-    private cognitoPrd: AutenticacionCognitoService,@Inject(MY_USER_DATA) private userSesion:BehaviorSubject<any>) { }
+    private cognitoPrd: AutenticacionCognitoService,@Inject(MY_USER_DATA) private userSesion:BehaviorSubject<any>
+    ,@Inject(MY_EMPRESA_DATA) private empresaSesion:BehaviorSubject<any>) { }
 
   ngOnInit(): void {
     this.formGroup = this.createForm({});
@@ -51,40 +56,30 @@ export class LoginComponent implements OnInit {
     this.modalPrd.showLoading("Iniciando sesión");
     const username = this.formGroup.value.username;
     const password = this.formGroup.value.password;
-    this.loginPrd.login({username:username,password:password}).subscribe(datos=>{
+    this.loginPrd.login({username:username,password:password}).subscribe((datos:any)=>{
 
+
+
+      console.log(datos.empresas);
       console.log("datos de sesion",datos);
+      if(datos.empresas.length != undefined && datos.empresas.length == 1){
+           sessionStorage.setItem("empresa",JSON.stringify(datos.empresas[0]));
+           this.userSesion.next(datos.empresas[0]);
+      }else if(datos.empresas.length != undefined && datos.empresas.length > 1){
+         this.masempresas = true;
+         this.empresas = datos.empresas;
+         this.modalPrd.closeLoading();
+         this.datos = datos;
+         return;
+      }else{
+         console.log("No tiene empresas asociadas");
+      }
       sessionStorage.setItem('datosusuario',JSON.stringify(datos));
+
       this.userSesion.next(datos);
       this.modalPrd.closeLoading();
       this.router.navigate(['/inicio'], { state: { 'formulario': this.formGroup.value } });
     });
-    return;
-    this.cognitoPrd.loginuser(username, password).then(datos => {
-      this.modalPrd.closeLoading();
-      if(datos.TypeError === TYPE_ERROR_COGNITO.LoginExitoso){
-        this.modalPrd.showMessageDialog({ message: datos.mensaje, typeDialog: TYPE_DIALOG.SUCCESS }).then(() => {
-          this.router.navigate(['/inicio'], { state: { 'formulario': this.formGroup.value } });
-        });
-      }else if(datos.TypeError === TYPE_ERROR_COGNITO.SMS_MFA){
-        this.modalPrd.showMessageDialog({ message: datos.mensaje, typeDialog: TYPE_DIALOG.SUCCESS }).then(() => {
-          this.router.navigate(['/auth/validacionotp'], { state: { 'formulario': this.formGroup.value } });
-        });
-      }
-    }, (err: CognitoResponse) => {
-      this.modalPrd.closeLoading();
-      switch (err.TypeError) {
-        case TYPE_ERROR_COGNITO.NewPassword:
-          this.modalPrd.showMessageDialog({ message: err.mensaje, typeDialog: TYPE_DIALOG.WARNING }).then(datos => {
-            console.log("correcto", err.datos);
-            this.router.navigate(["/auth/cambiopassword"], { state: { datos: err.datos }, });
-          });
-          break;
-        default:
-          this.modalPrd.showMessageDialog({ message: err.mensaje, typeDialog: TYPE_DIALOG.ERROR });
-      }
-    });
-    //this.router.navigate(['/inicio'],{state:{'formulario':this.formGroup.value}});
 
   }
 
@@ -105,6 +100,21 @@ export class LoginComponent implements OnInit {
 
   public redireccionar() {
     document.location.href = "/";
+  }
+
+  public seleccionar(item:Empresa){
+     this.empresas.forEach(s => s.seleccionar = false);
+     item.seleccionar = true;
+  }
+
+  public seleccionarEmpresa(){
+    const empresa = this.empresas.find(s => s.seleccionar);
+    sessionStorage.setItem("empresa",JSON.stringify(empresa));
+    this.userSesion.next(empresa);
+    sessionStorage.setItem('datosusuario',JSON.stringify(this.datos));
+
+    this.userSesion.next(this.datos);
+    this.router.navigate(['/inicio'], { state: { 'formulario': this.formGroup.value } });
   }
 
 

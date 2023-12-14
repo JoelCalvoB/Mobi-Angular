@@ -7,7 +7,8 @@ export interface Usuario {
     segundoApellido:string,
     telefono:string,
     esActivo:boolean,
-    id:number
+    id:number,
+    empresas:Empresa[]
 }
 
 
@@ -49,6 +50,7 @@ export interface Empresa{
   nombre:string,
   razonSocial:string,
   versiones:Versiones[]
+  seleccionar:boolean
 }
 
 

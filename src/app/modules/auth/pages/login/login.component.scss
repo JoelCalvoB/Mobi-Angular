@@ -23,7 +23,7 @@ span{
 }
 
 .errors{
-    display: flex; 
+    display: flex;
     flex-direction: column;
     position: absolute;
     background: white;
@@ -32,7 +32,7 @@ span{
     font-family: "Open Sans",sans-serif !important;
     line-height: 16px;
     letter-spacing: 0.4px;
-    box-shadow: 0px 10px 12px rgba(0, 46, 113, 0.12); 
+    box-shadow: 0px 10px 12px rgba(0, 46, 113, 0.12);
     border-radius: 4px;
     padding-left: 16px;
     width: 100%;
@@ -87,4 +87,47 @@ span{
 .personalizar{
     color: #fc494a;
     background: #e7f0fe;
+}
+
+
+.bloque{
+  border:1px dotted black;
+  border-radius: 20px;
+  width: 160px;
+  height: 160px;
+  text-align: center;
+  overflow: auto;
+  .bloque-body{
+    margin:20px;
+    img{
+      margin: auto;
+      width: 90px;
+      border-radius: 100%;
+    }
+    p{
+      font-size: large;
+      font-weight: 900;
+      word-wrap: break-word;
+    }
+  }
+
+  &:hover{
+    background-color: #ffdd75;
+    cursor: pointer;
+    .bloque-body{
+      img{
+
+      }
+    }
+  }
+}
+
+
+.foco:hover{
+  background: gray;
+  border-color: gray;
+}
+.seleccionado{
+  background-color: #fc4a4a !important;
+  color: white;
 }
