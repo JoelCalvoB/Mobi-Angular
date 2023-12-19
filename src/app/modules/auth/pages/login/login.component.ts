@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TYPE_DIALOG } from 'src/app/core/modelos/modales';
 import { CognitoResponse, TYPE_ERROR_COGNITO } from 'src/app/core/modelos/modeloCognito';
-import { AutenticacionCognitoService } from 'src/app/shared/services/autenticacion-cognito.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { LoginAutenticacionService } from '../../../../shared/services/login-autenticacion.service';
 import { MY_EMPRESA_DATA, MY_USER_DATA } from 'src/app/core/tokens/tokensProviders';
@@ -26,7 +25,7 @@ export class LoginComponent implements OnInit {
   activo: boolean = false;
   okPassword: boolean = false;
   constructor(private modalPrd: ModalService, private fb: FormBuilder, private router: Router, private loginPrd: LoginAutenticacionService,
-    private cognitoPrd: AutenticacionCognitoService,@Inject(MY_USER_DATA) private userSesion:BehaviorSubject<any>
+   @Inject(MY_USER_DATA) private userSesion:BehaviorSubject<any>
     ,@Inject(MY_EMPRESA_DATA) private empresaSesion:BehaviorSubject<any>) { }
 
   ngOnInit(): void {

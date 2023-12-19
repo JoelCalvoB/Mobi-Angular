@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { TYPE_DIALOG } from 'src/app/core/modelos/modales';
 import { CognitoResponse } from 'src/app/core/modelos/modeloCognito';
 import { CustomValidator } from 'src/app/shared/customValidators/customValids';
-import { AutenticacionCognitoService } from 'src/app/shared/services/autenticacion-cognito.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
@@ -21,7 +20,7 @@ export class CambioPasswordComponent implements OnInit {
 
   private username!:string;
 
-  constructor(private fb:FormBuilder,private router:Router,private cognitoPrd:AutenticacionCognitoService,
+  constructor(private fb:FormBuilder,private router:Router,
     private modalPrd:ModalService) { }
 
   ngOnInit(): void {
@@ -78,16 +77,6 @@ export class CambioPasswordComponent implements OnInit {
 
   private guardarPassword(valores:any){
     this.modalPrd.showLoading("Actualizando contraseña");
-      this.cognitoPrd.cambiandoPassword(valores.password,{}).then((datos:CognitoResponse) =>{
-        this.modalPrd.closeLoading();
-        this.modalPrd.showMessageDialog({message:datos.mensaje,typeDialog:TYPE_DIALOG.SUCCESS}).then(()=>{
-          this.router.navigateByUrl("/auth/login");
-        });
-          
-      },err=>{
-        this.modalPrd.closeLoading();
-        this.modalPrd.showMessageDialog({message:err.mensaje,typeDialog:TYPE_DIALOG.ERROR});
-      });
   }
 
   public pass() {

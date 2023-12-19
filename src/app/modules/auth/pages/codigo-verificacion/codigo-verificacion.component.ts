@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TYPE_DIALOG } from 'src/app/core/modelos/modales';
 import { CognitoResponse } from 'src/app/core/modelos/modeloCognito';
-import { AutenticacionCognitoService } from 'src/app/shared/services/autenticacion-cognito.service';
+
 import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
@@ -24,11 +24,11 @@ export class CodigoVerificacionComponent implements OnInit {
   public habilitado: boolean = false;
   public cargando: boolean = false;
 
-  constructor(private fb: FormBuilder, private router: Router,private cognitoUser:AutenticacionCognitoService,
+  constructor(private fb: FormBuilder, private router: Router,
     private modalPrd:ModalService) { }
 
   ngOnInit(): void {
-    if(!Boolean(this.cognitoUser.userCognito)) this.router.navigateByUrl("/auth/login");
+
     let formulario = history.state.formulario || {};
     this.celular = formulario.celular;
     this.myForm = this.createForm();
@@ -95,17 +95,6 @@ export class CodigoVerificacionComponent implements OnInit {
    this.modalPrd.showLoading("Verificando otp");
    const obj = this.myForm.value;
 
-   this.cognitoUser.verificarMFA(`${obj.c1}${obj.c2}${obj.c3}${obj.c4}${obj.c5}${obj.c6}`).then((datos:CognitoResponse) =>{
-      
-    this.modalPrd.showMessageDialog({typeDialog:TYPE_DIALOG.SUCCESS,message:datos.mensaje}).then(datos =>{
-      this.router.navigate(['/inicio']);
-    });
-
-   },(err:CognitoResponse) =>{
-
-    this.modalPrd.showMessageDialog({typeDialog:TYPE_DIALOG.ERROR,message:err.mensaje});
-
-   });
 
   }
 

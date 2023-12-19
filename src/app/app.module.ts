@@ -16,7 +16,6 @@ import { MY_COLOR, MY_EMPRESA_DATA, MY_MODAL_MESSAGE, MY_MODAL_REPONSE, MY_USER_
 import { BehaviorSubject } from 'rxjs';
 import { myTokenUserIndicator } from './core/tokens/tokenRecurso';
 
-import { Amplify, Auth } from 'aws-amplify';
 import { environment } from 'src/environments/environment';
 import { ModalRespuesta, TYPE_DIALOG } from './core/modelos/modales';
 import { Unary } from '@angular/compiler';
@@ -24,7 +23,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Colores } from './core/modelos/usuarioLogin';
 
 var global = window;
-Amplify.configure(environment.configuracionCognito);
 
 @NgModule({
   declarations: [
